@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { getLocalStorageImage } from "../Services/localStorage";
 
 export const Main = styled.div`
@@ -10,7 +11,7 @@ export const Main = styled.div`
   .black-circle {
     height: 35px;
     width: 35px;
-    background: #000;
+    border: 2px solid black;
     border-radius: 50%;
     cursor: grab;
     position: absolute;
@@ -22,23 +23,32 @@ export const Main = styled.div`
   .red-circle {
     height: 35px;
     width: 35px;
-    border: 1px solid red;
+    border: 2px solid red;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: grab;
   }
   .blue-circle {
     height: 35px;
     width: 35px;
-    border: 1px solid royalblue;
+    border: 2px solid royalblue;
     border-radius: 50%;
     cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .pink-circle {
     height: 35px;
     width: 35px;
-    border: 1px solid #ff0fcf;
+    border: 2px solid #ff0fcf;
     border-radius: 50%;
     cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .drag-container {
     display: flex;
@@ -50,9 +60,11 @@ export const Main = styled.div`
     color: red;
     font-family: sans-serif;
     font-size: 15px;
+    width: 100px;
+    text-align: center;
   }
-  .first-box {
-    background: red;
+  .null-box {
+    background: black;
     height: 10px;
     width: 10px;
     border-radius: 50%;
@@ -61,26 +73,41 @@ export const Main = styled.div`
     color: blue;
     font-family: sans-serif;
     font-size: 15px;
+    width: 100px;
+    text-align: center;
   }
   .second-box {
-    background: blue;
-    height: 10px;
-    width: 10px;
+    border: 2px solid blue;
+    height: 8px;
+    width: 8px;
     border-radius: 50%;
   }
   .third {
     color: #ff0fcf;
     font-family: sans-serif;
     font-size: 15px;
+    width: 100px;
+    text-align: center;
   }
   .third-box {
-    background: #ff0fcf;
-    height: 10px;
-    width: 10px;
+    border: 2px solid #ff0fcf;
+    height: 8px;
+    width: 8px;
     border-radius: 50%;
   }
   .input-container {
-    padding: 20px;
+    padding: 10px 5px 10px 5px;
+  }
+  .final-value {
+    display: flex;
+    align-items: flex-end;
+    height: 54px;
+    width: 100px;
+    span {
+      font-size: 16px;
+      font-family: system-ui;
+      text-align: center;
+    }
   }
   .input-btn {
     background: #fff;
@@ -96,6 +123,11 @@ export const Main = styled.div`
       transition: all 0.5s ease;
       background: royalblue;
       color: #fff;
+    }
+  }
+  @media screen and (max-width: 635px) {
+    .final-value {
+      height: auto;
     }
   }
 `;
@@ -115,6 +147,14 @@ export const FloatOptions = styled.div`
     margin: 18px;
     padding: 5px;
     border-radius: 5px;
+  }
+  @media screen and (max-width: 635px) {
+    justify-content: flex-start;
+    align-items: flex-start;
+    .float-container {
+      flex-direction: column;
+      margin: 5px;
+    }
   }
 `;
 

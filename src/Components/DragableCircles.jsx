@@ -5,6 +5,7 @@ import { Main, FloatOptions, NoContentBox } from "./DragableCirclesStyles";
 import { storeFile, getLocalStorageImage } from "../Services/localStorage";
 
 export default function DragableCircles() {
+  const [calculatedValues, setCalculatedValues] = useState(0);
   const getImage = (file) => {
     const reader = new FileReader();
     if (file) {
@@ -65,7 +66,18 @@ export default function DragableCircles() {
     } else {
       setFirstConnectionDist(Math.round(Math.cbrt(x - mainX + y - mainY)));
     }
-  }, [firstConnectionMainBall, firstConnectionSecondBall, firstConnectionDist]);
+
+    if (firstConnectionDist && secondConnectionDist) {
+      setCalculatedValues(
+        Math.round((secondConnectionDist * 54) / (firstConnectionDist * 1))
+      );
+    }
+  }, [
+    firstConnectionMainBall,
+    firstConnectionSecondBall,
+    firstConnectionDist,
+    secondConnectionDist,
+  ]);
 
   useEffect(() => {
     const { x: mainX, y: mainY } = secondConnectionMainBall;
@@ -129,8 +141,11 @@ export default function DragableCircles() {
                 onDrag={updateMainBall}
                 onStop={updateMainBall}
               >
-                <div className="black-circle" ref={firstConnectionblackBall}>
-                  <div className="first-box" />
+                <div className="black-circle">
+                  <div
+                    className="little-red-box"
+                    ref={firstConnectionblackBall}
+                  />
                 </div>
               </Draggable>
               <Draggable
@@ -139,11 +154,14 @@ export default function DragableCircles() {
                 onDrag={updateSecondBall}
                 onStop={updateSecondBall}
               >
-                <div className="red-circle" ref={firstConnectionRedBall} />
+                <div className="red-circle">
+                  <div
+                    ref={firstConnectionRedBall}
+                    className="little-red-box"
+                  />
+                </div>
               </Draggable>
-              <span className="first">
-                Resultado da primeira: {firstConnectionDist}
-              </span>
+              <span className="first">Cartão {firstConnectionDist}</span>
             </div>
             <div className="drag-container">
               <Draggable
@@ -152,8 +170,8 @@ export default function DragableCircles() {
                 onDrag={updateMainBall}
                 onStop={updateMainBall}
               >
-                <div className="black-circle" ref={secondConnectionblackBall}>
-                  <div className="second-box" />
+                <div className="black-circle">
+                  <div className="second-box" ref={secondConnectionblackBall} />
                 </div>
               </Draggable>
               <Draggable
@@ -162,11 +180,11 @@ export default function DragableCircles() {
                 onDrag={updateSecondBall}
                 onStop={updateSecondBall}
               >
-                <div className="blue-circle" ref={secondConnectionBlueBall} />
+                <div className="blue-circle">
+                  <div className="second-box" ref={secondConnectionBlueBall} />
+                </div>
               </Draggable>
-              <span className="second">
-                Resultado da segunda: {secondConnectionDist}
-              </span>
+              <span className="second">Pupila: {secondConnectionDist}</span>
             </div>
             <div className="drag-container">
               <Draggable
@@ -175,8 +193,8 @@ export default function DragableCircles() {
                 onDrag={updateMainBall}
                 onStop={updateMainBall}
               >
-                <div className="black-circle" ref={thirdConnectionblackBall}>
-                  <div className="third-box" />
+                <div className="black-circle">
+                  <div className="third-box" ref={thirdConnectionblackBall} />
                 </div>
               </Draggable>
               <Draggable
@@ -185,11 +203,14 @@ export default function DragableCircles() {
                 onDrag={updateSecondBall}
                 onStop={updateSecondBall}
               >
-                <div className="pink-circle" ref={thirdConnectionPinkBall} />
+                <div className="pink-circle">
+                  <div className="third-box" ref={thirdConnectionPinkBall} />
+                </div>
               </Draggable>
-              <span className="third">
-                Resultado da Terceira: {thirdConnectionDist}
-              </span>
+              <span className="third">Óculos: {thirdConnectionDist}</span>
+            </div>
+            <div className="final-value">
+              <span>Valor final: {calculatedValues}</span>
             </div>
             <div className="input-container">
               <input

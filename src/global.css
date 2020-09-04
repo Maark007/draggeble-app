@@ -1,8 +1,26 @@
 * {
   padding: 0;
   margin: 0;
+  max-height: 100vh;
+  max-width: 100%;
 }
 
 input[type="file"] {
   display: none;
+}
+
+.react-transform-component {
+  width: 100% !important;
+  height: 100vh;
+}
+
+.react-transform-element {
+  width: 100% !important;
+}
+
+.little-red-box {
+  border: 2px solid red;
+  height: 8px;
+  border-radius: 50%;
+  width: 8px;
 }
