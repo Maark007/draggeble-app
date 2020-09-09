@@ -6,6 +6,7 @@ import { storeFile, getLocalStorageImage } from "../Services/localStorage";
 
 export default function DragableCircles() {
   const [calculatedValues, setCalculatedValues] = useState(0);
+  const [glassValue, setGlassValue] = useState(0);
   const getImage = (file) => {
     const reader = new FileReader();
     if (file) {
@@ -61,15 +62,16 @@ export default function DragableCircles() {
     const { x: mainX, y: mainY } = firstConnectionMainBall;
     const { x, y } = firstConnectionSecondBall;
 
-    if (firstConnectionDist >= 0) {
-      setFirstConnectionDist(Math.round(Math.sqrt(x - mainX + y - mainY)));
-    } else {
-      setFirstConnectionDist(Math.round(Math.cbrt(x - mainX + y - mainY)));
-    }
+    setFirstConnectionDist(x - mainX + y - mainY);
 
     if (firstConnectionDist && secondConnectionDist) {
       setCalculatedValues(
-        Math.round((secondConnectionDist * 54) / (firstConnectionDist * 1))
+        (((54 * secondConnectionDist) / firstConnectionDist) * 0.1).toFixed(2)
+      );
+    }
+    if (firstConnectionDist && thirdConnectionDist) {
+      setGlassValue(
+        (((54 * thirdConnectionDist) / firstConnectionDist) * 0.1).toFixed(2)
       );
     }
   }, [
@@ -83,11 +85,7 @@ export default function DragableCircles() {
     const { x: mainX, y: mainY } = secondConnectionMainBall;
     const { x, y } = secondConnectionSecondBall;
 
-    if (secondConnectionDist >= 0) {
-      setSecondConnectionDist(Math.round(Math.sqrt(x - mainX + y - mainY)));
-    } else {
-      setSecondConnectionDist(Math.round(Math.cbrt(x - mainX + y - mainY)));
-    }
+    setSecondConnectionDist(x - mainX + y - mainY);
   }, [
     secondConnectionMainBall,
     secondConnectionSecondBall,
@@ -98,11 +96,7 @@ export default function DragableCircles() {
     const { x: mainX, y: mainY } = thirdConnectionMainBall;
     const { x, y } = thirdConnectionthirdBall;
 
-    if (thirdConnectionDist >= 0) {
-      setThirdConnectionDist(Math.round(Math.sqrt(x - mainX + y - mainY)));
-    } else {
-      setThirdConnectionDist(Math.round(Math.cbrt(x - mainX + y - mainY)));
-    }
+    setThirdConnectionDist(x - mainX + y - mainY);
   }, [thirdConnectionMainBall, thirdConnectionthirdBall, thirdConnectionDist]);
 
   function updateMainBall() {
@@ -161,7 +155,7 @@ export default function DragableCircles() {
                   />
                 </div>
               </Draggable>
-              <span className="first">Cartão {firstConnectionDist}</span>
+              <span className="first">Cartão</span>
             </div>
             <div className="drag-container">
               <Draggable
@@ -184,7 +178,7 @@ export default function DragableCircles() {
                   <div className="second-box" ref={secondConnectionBlueBall} />
                 </div>
               </Draggable>
-              <span className="second">Pupila: {secondConnectionDist}</span>
+              <span className="second">Pupila</span>
             </div>
             <div className="drag-container">
               <Draggable
@@ -207,21 +201,22 @@ export default function DragableCircles() {
                   <div className="third-box" ref={thirdConnectionPinkBall} />
                 </div>
               </Draggable>
-              <span className="third">Óculos: {thirdConnectionDist}</span>
+              <span className="third">Óculos</span>
             </div>
-            <div className="final-value">
-              <span>Valor final: {calculatedValues}</span>
-            </div>
-            <div className="input-container">
-              <input
-                id="icon-button-file"
-                type="file"
-                onChange={(e) => getImage(e.target.files[0])}
-              />
-              <label htmlFor="icon-button-file">
-                <span className="input-btn">Trocar imagem</span>
-              </label>
-            </div>
+              <div className="final-value">
+                <span>Valor da pupila: {calculatedValues}</span>
+                <span>Valor óculos: {glassValue}</span>
+              </div>
+              <div className="input-container">
+                <input
+                  id="icon-button-file"
+                  type="file"
+                  onChange={(e) => getImage(e.target.files[0])}
+                />
+                <label htmlFor="icon-button-file">
+                  <span className="input-btn">Trocar imagem</span>
+                </label>
+              </div>
           </div>
         </FloatOptions>
       ) : (
@@ -239,6 +234,35 @@ export default function DragableCircles() {
           </div>
         </NoContentBox>
       )}
+      <svg>
+        {firstConnectionSecondBall.x !== 0 && (
+          <line
+            x1={firstConnectionMainBall.x + 11}
+            y1={firstConnectionMainBall.y + 5}
+            x2={firstConnectionSecondBall.x}
+            y2={firstConnectionSecondBall.y + 5}
+            stroke="rgb(255,0,0)"
+          />
+        )}
+        {secondConnectionSecondBall.x !== 0 && (
+          <line
+            x1={secondConnectionMainBall.x + 11}
+            y1={secondConnectionMainBall.y + 5}
+            x2={secondConnectionSecondBall.x}
+            y2={secondConnectionSecondBall.y + 5}
+            stroke="blue"
+          />
+        )}
+        {thirdConnectionthirdBall.x !== 0 && (
+          <line
+            x1={thirdConnectionMainBall.x + 11}
+            y1={thirdConnectionMainBall.y + 5}
+            x2={thirdConnectionthirdBall.x}
+            y2={thirdConnectionthirdBall.y + 5}
+            stroke="#ff0fcf"
+          />
+        )}
+      </svg>
     </Main>
   );
 }

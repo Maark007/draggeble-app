@@ -100,9 +100,11 @@ export const Main = styled.div`
   }
   .final-value {
     display: flex;
-    align-items: flex-end;
-    height: 54px;
-    width: 100px;
+    flex-direction: column;
+    justify-content: center;
+    height: 55px;
+    padding: 10px;
+    width: 200px;
     span {
       font-size: 16px;
       font-family: system-ui;
@@ -125,9 +127,10 @@ export const Main = styled.div`
       color: #fff;
     }
   }
-  @media screen and (max-width: 635px) {
+  @media screen and (max-width: 740px) {
     .final-value {
       height: auto;
+      width: auto;
     }
   }
 `;
@@ -141,14 +144,13 @@ export const FloatOptions = styled.div`
   width: 100%;
   .float-container {
     display: flex;
-    justify-content: center;
     align-items: center;
     background: #fff;
     margin: 18px;
     padding: 5px;
     border-radius: 5px;
   }
-  @media screen and (max-width: 635px) {
+  @media screen and (max-width: 740px) {
     justify-content: flex-start;
     align-items: flex-start;
     .float-container {
