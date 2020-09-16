@@ -2,11 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import Swal from "sweetalert2";
 
-import {
-  Main,
-  FloatOptions,
-  Button,
-} from "../Styles/DragableCirclesStyles";
+import { Main, FloatOptions, Button } from "../Styles/DragableCirclesStyles";
 import { storeFile, getLocalStorageImage } from "../Services/localStorage";
 import { imageZoom } from "../Utils/ImageZoom";
 
@@ -228,29 +224,30 @@ export default function DragableCircles() {
               </Draggable>
               <span className="third">Óculos</span>
             </div>
+            <div className="input-container">
+              <input
+                id="icon-button-file"
+                type="file"
+                onChange={(e) => getImage(e.target.files[0])}
+              />
+              <label className="first-label" htmlFor="icon-button-file">
+                <span className="input-btn">Trocar imagem</span>
+              </label>
+            </div>
           </div>
           <div className="final-value">
             <span>Valor da pupila: {calculatedValues}</span>
             <span>Valor óculos: {glassValue}</span>
           </div>
-
-          <div className="input-container">
-            <input
-              id="icon-button-file"
-              type="file"
-              onChange={(e) => getImage(e.target.files[0])}
-            />
-            <label className="first-label" htmlFor="icon-button-file">
-              <span className="input-btn">Trocar imagem</span>
-              <span className="input-icon">
-                <i className="fas fa-camera"></i>
-              </span>
-            </label>
-          </div>
         </div>
         <Button onClick={showInformations}>
           <i className="fas fa-bars" />
         </Button>
+        <label className="first-label" htmlFor="icon-button-file">
+          <span className="input-icon">
+            <i className="fas fa-camera"></i>
+          </span>
+        </label>
       </FloatOptions>
       <svg>
         {firstConnectionSecondBall.x !== 0 && (

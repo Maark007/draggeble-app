@@ -61,7 +61,6 @@ export const Main = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 5px;
   }
   .first {
     color: red;
@@ -104,6 +103,8 @@ export const Main = styled.div`
   }
   .input-container {
     padding: 10px 5px 10px 5px;
+    display: flex;
+    align-items: center;
   }
   .final-value {
     display: flex;
@@ -146,21 +147,20 @@ export const Main = styled.div`
     .input-btn {
       display: none;
     }
-    .input-container {
-      width: 120px;
-    }
     .input-icon {
       display: flex;
-      justify-content: center;
-      cursor: pointer;
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: 17px;
       i {
-        font-size: 25px;
+        font-size: 22px;
         color: royalblue;
       }
     }
     .all-circles-box {
       width: inherit;
-      justify-content: space-around;
+      justify-content: space-between;
     }
   }
 `;
