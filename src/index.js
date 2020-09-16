@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./Styles/global.css";
+import "./Styles/Global.css";
 
 ReactDOM.render(
   <React.StrictMode>

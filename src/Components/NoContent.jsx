@@ -38,6 +38,7 @@ export default function NoContentPage() {
       return toast.success("Bem-vindo, escolha uma foto para começarmos!");
     }
   });
+
   return (
     <NoContentBox>
       <img draggable="false" height="175" src={Eye} alt="eye-gif" />

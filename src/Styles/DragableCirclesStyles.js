@@ -21,6 +21,12 @@ export const Main = styled.div`
     position: absolute;
     z-index: 100;
   }
+  .little-red-box {
+  border: 2px solid red;
+  height: 5px;
+  border-radius: 50%;
+  width: 5px;
+}
   .red-circle {
     border-radius: 50%;
     display: flex;
@@ -79,8 +85,8 @@ export const Main = styled.div`
   }
   .second-box {
     border: 2px solid blue;
-    height: 8px;
-    width: 8px;
+    height: 5px;
+    width: 5px;
     border-radius: 50%;
   }
   .third {
@@ -92,8 +98,8 @@ export const Main = styled.div`
   }
   .third-box {
     border: 2px solid #ff0fcf;
-    height: 8px;
-    width: 8px;
+    height: 5px;
+    width: 5px;
     border-radius: 50%;
   }
   .input-container {
@@ -107,10 +113,12 @@ export const Main = styled.div`
     padding: 10px;
     width: 200px;
     span {
-      font-size: 16px;
-      font-family: system-ui;
-      text-align: center;
+      font-family: sans-serif;
+      font-size: 18px;
     }
+  }
+  .all-circles-box {
+    display: flex;
   }
   .input-btn {
     background: #fff;
@@ -128,12 +136,31 @@ export const Main = styled.div`
       color: #fff;
     }
   }
+  .input-icon {
+    display: none;
+  }
   @media screen and (max-width: 740px) {
     .final-value {
       display: none;
     }
     .input-btn {
       display: none;
+    }
+    .input-container {
+      width: 120px;
+    }
+    .input-icon {
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+      i {
+        font-size: 25px;
+        color: royalblue;
+      }
+    }
+    .all-circles-box {
+      width: inherit;
+      justify-content: space-around;
     }
   }
 `;
@@ -158,5 +185,23 @@ export const FloatOptions = styled.div`
   @media screen and (max-width: 740px) {
     justify-content: center;
     align-items: flex-end;
+  }
+`;
+
+export const Button = styled.button`
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 15px;
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+  border: none;
+  border-radius: 50%;
+  @media screen and (max-width: 740px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;

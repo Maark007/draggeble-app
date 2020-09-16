@@ -32,8 +32,8 @@ export const FluxInput = styled.div`
   align-items: center;
   flex-direction: column;
   input {
-    padding: 9px;
-    border-radius: 3px;
+    padding: 10px;
+    border-radius: 29px;
     border: 1px solid grey;
   }
   button {
