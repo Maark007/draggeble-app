@@ -29,3 +29,9 @@ svg {
   border-radius: 50%;
   width: 8px;
 }
+
+.img-zoom-lens {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}

@@ -1,12 +1,18 @@
 import React, { useRef, useEffect, useState } from "react";
 import Draggable from "react-draggable";
 
-import { Main, FloatOptions, NoContentBox } from "./DragableCirclesStyles";
+import {
+  Main,
+  FloatOptions,
+  NoContentBox,
+} from "../Styles/DragableCirclesStyles";
 import { storeFile, getLocalStorageImage } from "../Services/localStorage";
+import { imageZoom } from "../Utils/ImageZoom";
 
 export default function DragableCircles() {
   const [calculatedValues, setCalculatedValues] = useState(0);
   const [glassValue, setGlassValue] = useState(0);
+
   const getImage = (file) => {
     const reader = new FileReader();
     if (file) {
@@ -123,105 +129,93 @@ export default function DragableCircles() {
     );
   }
 
+  useEffect(() => {
+    imageZoom("myimg", "myresult");
+  });
+
   return (
-    <Main>
-      {getLocalStorageImage() ? (
-        <FloatOptions>
-          <div className="float-container">
-            <div className="drag-container">
-              <Draggable
-                defaultPosition={{ x: 0, y: 0 }}
-                onStart={updateMainBall}
-                onDrag={updateMainBall}
-                onStop={updateMainBall}
-              >
-                <div className="black-circle">
-                  <div
-                    className="little-red-box"
-                    ref={firstConnectionblackBall}
-                  />
-                </div>
-              </Draggable>
-              <Draggable
-                defaultPosition={{ x: 0, y: 0 }}
-                onStart={updateSecondBall}
-                onDrag={updateSecondBall}
-                onStop={updateSecondBall}
-              >
-                <div className="red-circle">
-                  <div
-                    ref={firstConnectionRedBall}
-                    className="little-red-box"
-                  />
-                </div>
-              </Draggable>
-              <span className="first">Cartão</span>
-            </div>
-            <div className="drag-container">
-              <Draggable
-                defaultPosition={{ x: 0, y: 0 }}
-                onStart={updateMainBall}
-                onDrag={updateMainBall}
-                onStop={updateMainBall}
-              >
-                <div className="black-circle">
-                  <div className="second-box" ref={secondConnectionblackBall} />
-                </div>
-              </Draggable>
-              <Draggable
-                defaultPosition={{ x: 0, y: 0 }}
-                onStart={updateSecondBall}
-                onDrag={updateSecondBall}
-                onStop={updateSecondBall}
-              >
-                <div className="blue-circle">
-                  <div className="second-box" ref={secondConnectionBlueBall} />
-                </div>
-              </Draggable>
-              <span className="second">Pupila</span>
-            </div>
-            <div className="drag-container">
-              <Draggable
-                defaultPosition={{ x: 0, y: 0 }}
-                onStart={updateMainBall}
-                onDrag={updateMainBall}
-                onStop={updateMainBall}
-              >
-                <div className="black-circle">
-                  <div className="third-box" ref={thirdConnectionblackBall} />
-                </div>
-              </Draggable>
-              <Draggable
-                defaultPosition={{ x: 0, y: 0 }}
-                onStart={updateSecondBall}
-                onDrag={updateSecondBall}
-                onStop={updateSecondBall}
-              >
-                <div className="pink-circle">
-                  <div className="third-box" ref={thirdConnectionPinkBall} />
-                </div>
-              </Draggable>
-              <span className="third">Óculos</span>
-            </div>
-              <div className="final-value">
-                <span>Valor da pupila: {calculatedValues}</span>
-                <span>Valor óculos: {glassValue}</span>
-              </div>
-              <div className="input-container">
-                <input
-                  id="icon-button-file"
-                  type="file"
-                  onChange={(e) => getImage(e.target.files[0])}
+    <Main id="myimg">
+      <FloatOptions>
+        <div className="float-container">
+          <div className="drag-container">
+            <Draggable
+              defaultPosition={{ x: 0, y: 0 }}
+              onStart={updateMainBall}
+              onDrag={updateMainBall}
+              onStop={updateMainBall}
+            >
+              <div className="black-circle">
+                <div
+                  className="little-red-box"
+                  ref={firstConnectionblackBall}
                 />
-                <label htmlFor="icon-button-file">
-                  <span className="input-btn">Trocar imagem</span>
-                </label>
               </div>
+            </Draggable>
+            <Draggable
+              defaultPosition={{ x: 0, y: 0 }}
+              onStart={updateSecondBall}
+              onDrag={updateSecondBall}
+              onStop={updateSecondBall}
+            >
+              <div className="red-circle" id="myresult">
+                <div ref={firstConnectionRedBall} className="little-red-box" />
+              </div>
+            </Draggable>
+            <span className="first">Cartão</span>
           </div>
-        </FloatOptions>
-      ) : (
-        <NoContentBox>
-          <h1>Olá, adicione uma imagem para começarmos!</h1>
+
+          <div className="drag-container">
+            <Draggable
+              defaultPosition={{ x: 0, y: 0 }}
+              onStart={updateMainBall}
+              onDrag={updateMainBall}
+              onStop={updateMainBall}
+            >
+              <div className="black-circle">
+                <div className="second-box" ref={secondConnectionblackBall} />
+              </div>
+            </Draggable>
+            <Draggable
+              defaultPosition={{ x: 0, y: 0 }}
+              onStart={updateSecondBall}
+              onDrag={updateSecondBall}
+              onStop={updateSecondBall}
+            >
+              <div className="blue-circle">
+                <div className="second-box" ref={secondConnectionBlueBall} />
+              </div>
+            </Draggable>
+            <span className="second">Pupila</span>
+          </div>
+
+          <div className="drag-container">
+            <Draggable
+              defaultPosition={{ x: 0, y: 0 }}
+              onStart={updateMainBall}
+              onDrag={updateMainBall}
+              onStop={updateMainBall}
+            >
+              <div className="black-circle">
+                <div className="third-box" ref={thirdConnectionblackBall} />
+              </div>
+            </Draggable>
+            <Draggable
+              defaultPosition={{ x: 0, y: 0 }}
+              onStart={updateSecondBall}
+              onDrag={updateSecondBall}
+              onStop={updateSecondBall}
+            >
+              <div className="pink-circle">
+                <div className="third-box" ref={thirdConnectionPinkBall} />
+              </div>
+            </Draggable>
+            <span className="third">Óculos</span>
+          </div>
+
+          <div className="final-value">
+            <span>Valor da pupila: {calculatedValues}</span>
+            <span>Valor óculos: {glassValue}</span>
+          </div>
           <div className="input-container">
             <input
               id="icon-button-file"
@@ -229,11 +223,11 @@ export default function DragableCircles() {
               onChange={(e) => getImage(e.target.files[0])}
             />
             <label htmlFor="icon-button-file">
-              <span className="input-btn">Adicionar imagem</span>
+              <span className="input-btn">Trocar imagem</span>
             </label>
           </div>
-        </NoContentBox>
-      )}
+        </div>
+      </FloatOptions>
       <svg>
         {firstConnectionSecondBall.x !== 0 && (
           <line

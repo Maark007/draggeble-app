@@ -8,27 +8,28 @@ export const Main = styled.div`
   background: url(${getLocalStorageImage()});
   background-size: cover;
   background-position: center;
+  position: relative;
   .black-circle {
     height: 35px;
     width: 35px;
     border: 2px solid black;
     border-radius: 50%;
     cursor: grab;
-    position: absolute;
-    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    z-index: 100;
   }
   .red-circle {
-    height: 35px;
-    width: 35px;
-    border: 2px solid red;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: grab;
+    height: 35px;
+    width: 35px;
+    border: 2px solid red;
   }
   .blue-circle {
     height: 35px;
@@ -129,8 +130,10 @@ export const Main = styled.div`
   }
   @media screen and (max-width: 740px) {
     .final-value {
-      height: auto;
-      width: auto;
+      display: none;
+    }
+    .input-btn {
+      display: none;
     }
   }
 `;
@@ -145,33 +148,15 @@ export const FloatOptions = styled.div`
   .float-container {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     background: #fff;
-    margin: 18px;
+    width: 95%;
     padding: 5px;
+    margin: 5px;
     border-radius: 5px;
   }
   @media screen and (max-width: 740px) {
-    justify-content: flex-start;
-    align-items: flex-start;
-    .float-container {
-      flex-direction: column;
-      margin: 5px;
-    }
-  }
-`;
-
-export const NoContentBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  position: absolute;
-  height: 100vh;
-  width: 100%;
-  h1 {
-    font-size: 34px;
-    font-weight: 100;
-    font-family: "Montserrat", sans-serif;
-    text-align: center;
+    justify-content: center;
+    align-items: flex-end;
   }
 `;
