@@ -291,11 +291,11 @@ export default function DragableCircles() {
           </span>
         </label>
       </FloatOptions>
-      {/* {selectedToZoom && ( */}
+      {selectedToZoom && (
         <FloatWindow className="img-zoom-lens" id="result">
           <div className="black-circle" />
         </FloatWindow>
-      {/* )} */}
+      )}
     </Main>
   );
 }
