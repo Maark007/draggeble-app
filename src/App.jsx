@@ -7,7 +7,11 @@ import { getLocalStorageImage, isLoggued } from "./Services/localStorage";
 export default function App() {
   return (
     <div className="App">
-      {getLocalStorageImage() ? <DragableCircles /> : <NoContentPage/>}
+      {getLocalStorageImage() && isLoggued() ? (
+        <DragableCircles />
+      ) : (
+        <NoContentPage />
+      )}
     </div>
   );
 }
