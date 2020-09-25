@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import Swal from "sweetalert2";
+import Cross from "../Assets/Cross.svg";
 
 import {
   Main,
@@ -205,7 +206,12 @@ export default function DragableCircles() {
                 onMouseDown={() => setSelectedToZoom(1)}
               >
                 <div className="black-circle">
-                  <div className="mid-box" ref={firstConnectionblackBall} />
+                  <img
+                    draggable="false"
+                    ref={firstConnectionblackBall}
+                    src={Cross}
+                    alt="img"
+                  />
                 </div>
               </Draggable>
               <Draggable
@@ -214,8 +220,13 @@ export default function DragableCircles() {
                 onStop={() => setSelectedToZoom(null)}
                 onMouseDown={() => setSelectedToZoom(2)}
               >
-                <div className="red-circle" id="myresult">
-                  <div ref={firstConnectionRedBall} className="mid-box" />
+                <div className="red-circle">
+                  <img
+                    draggable="false"
+                    ref={firstConnectionRedBall}
+                    src={Cross}
+                    alt="img"
+                  />
                 </div>
               </Draggable>
               <span className="first">Cartão</span>
@@ -228,7 +239,12 @@ export default function DragableCircles() {
                 onMouseDown={() => setSelectedToZoom(3)}
               >
                 <div className="black-circle">
-                  <div className="mid-box" ref={secondConnectionblackBall} />
+                  <img
+                    draggable="false"
+                    ref={secondConnectionblackBall}
+                    src={Cross}
+                    alt="img"
+                  />
                 </div>
               </Draggable>
               <Draggable
@@ -238,7 +254,12 @@ export default function DragableCircles() {
                 onMouseDown={() => setSelectedToZoom(4)}
               >
                 <div className="blue-circle">
-                  <div className="mid-box" ref={secondConnectionBlueBall} />
+                  <img
+                    draggable="false"
+                    ref={secondConnectionBlueBall}
+                    src={Cross}
+                    alt="img"
+                  />
                 </div>
               </Draggable>
               <span className="second">Pupila</span>
@@ -251,7 +272,12 @@ export default function DragableCircles() {
                 onMouseDown={() => setSelectedToZoom(5)}
               >
                 <div className="black-circle">
-                  <div className="mid-box" ref={thirdConnectionblackBall} />
+                  <img
+                    draggable="false"
+                    ref={thirdConnectionblackBall}
+                    src={Cross}
+                    alt="img"
+                  />
                 </div>
               </Draggable>
               <Draggable
@@ -261,7 +287,12 @@ export default function DragableCircles() {
                 onMouseDown={() => setSelectedToZoom(6)}
               >
                 <div className="pink-circle">
-                  <div className="mid-box" ref={thirdConnectionPinkBall} />
+                  <img
+                    draggable="false"
+                    ref={thirdConnectionPinkBall}
+                    src={Cross}
+                    alt="img"
+                  />
                 </div>
               </Draggable>
               <span className="third">Óculos</span>
@@ -293,7 +324,7 @@ export default function DragableCircles() {
       </FloatOptions>
       {selectedToZoom && (
         <FloatWindow className="img-zoom-lens" id="result">
-          <div className="black-circle" />
+          <div className="zoom-circle" />
         </FloatWindow>
       )}
     </Main>

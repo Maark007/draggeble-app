@@ -4,11 +4,9 @@ export const Main = styled.div`
   height: 100vh;
   width: 100%;
   .black-circle {
+    cursor: grab;
     height: 25px;
     width: 25px;
-    border: 2px solid black;
-    border-radius: 50%;
-    cursor: grab;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -16,38 +14,26 @@ export const Main = styled.div`
     z-index: 2;
   }
   .red-circle {
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: grab;
     height: 25px;
     width: 25px;
-    border: 2px solid red;
     z-index: 2;
   }
   .blue-circle {
     height: 25px;
     width: 25px;
-    border: 2px solid royalblue;
-    border-radius: 50%;
     cursor: grab;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 2;
   }
-  .mid-box {
-    height: inherit;
-    width: 1px;
-    height: 1px;
-    background: red;
-  }
   .pink-circle {
     height: 25px;
     width: 25px;
-    border: 2px solid #ff0fcf;
-    border-radius: 50%;
     cursor: grab;
     display: flex;
     align-items: center;

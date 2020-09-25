@@ -40,3 +40,10 @@ svg {
 .react-transform-element {
   width: 100% !important;
 }
+
+.zoom-circle {
+  height: 20px;
+  width: 20px;
+  border: 2px solid #000;
+  border-radius: 50%;
+}
