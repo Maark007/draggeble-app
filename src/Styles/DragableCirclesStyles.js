@@ -177,6 +177,7 @@ export const Img = styled.img`
   height: 100vh;
   width: 100%;
   position: absolute;
+  object-fit: cover;
 `;
 
 export const FloatWindow = styled.div`

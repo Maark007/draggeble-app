@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import Swal from "sweetalert2";
 import Cross from "../Assets/Cross.svg";
+import GoldenCross from "../Assets/GoldenCross.svg";
 
 import {
   Main,
@@ -169,27 +170,27 @@ export default function DragableCircles() {
         {firstConnectionMainBall.x !== 0 && (
           <line
             x1={firstConnectionMainBall.x + 11}
-            y1={firstConnectionMainBall.y + 5}
-            x2={firstConnectionSecondBall.x}
-            y2={firstConnectionSecondBall.y + 5}
+            y1={firstConnectionMainBall.y + 11}
+            x2={firstConnectionSecondBall.x + 11}
+            y2={firstConnectionSecondBall.y + 11}
             stroke="rgb(255,0,0)"
           />
         )}
         {secondConnectionMainBall.x !== 0 && (
           <line
             x1={secondConnectionMainBall.x + 11}
-            y1={secondConnectionMainBall.y + 5}
-            x2={secondConnectionSecondBall.x}
-            y2={secondConnectionSecondBall.y + 5}
+            y1={secondConnectionMainBall.y + 11}
+            x2={secondConnectionSecondBall.x + 11}
+            y2={secondConnectionSecondBall.y + 11}
             stroke="blue"
           />
         )}
         {thirdConnectionMainBall.x !== 0 && (
           <line
             x1={thirdConnectionMainBall.x + 11}
-            y1={thirdConnectionMainBall.y + 5}
-            x2={thirdConnectionthirdBall.x}
-            y2={thirdConnectionthirdBall.y + 5}
+            y1={thirdConnectionMainBall.y + 11}
+            x2={thirdConnectionthirdBall.x + 11}
+            y2={thirdConnectionthirdBall.y + 11}
             stroke="#ff0fcf"
           />
         )}
@@ -224,7 +225,7 @@ export default function DragableCircles() {
                   <img
                     draggable="false"
                     ref={firstConnectionRedBall}
-                    src={Cross}
+                    src={GoldenCross}
                     alt="img"
                   />
                 </div>
@@ -244,6 +245,7 @@ export default function DragableCircles() {
                     ref={secondConnectionblackBall}
                     src={Cross}
                     alt="img"
+                    style={{ fill: '#ddd' }}
                   />
                 </div>
               </Draggable>
@@ -257,7 +259,7 @@ export default function DragableCircles() {
                   <img
                     draggable="false"
                     ref={secondConnectionBlueBall}
-                    src={Cross}
+                    src={GoldenCross}
                     alt="img"
                   />
                 </div>
@@ -290,7 +292,7 @@ export default function DragableCircles() {
                   <img
                     draggable="false"
                     ref={thirdConnectionPinkBall}
-                    src={Cross}
+                    src={GoldenCross}
                     alt="img"
                   />
                 </div>
