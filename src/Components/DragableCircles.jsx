@@ -209,8 +209,8 @@ export default function DragableCircles() {
                 <div className="black-circle">
                   <img
                     draggable="false"
-                    ref={firstConnectionblackBall}
                     src={Cross}
+                    ref={firstConnectionblackBall}
                     alt="img"
                   />
                 </div>
@@ -245,7 +245,7 @@ export default function DragableCircles() {
                     ref={secondConnectionblackBall}
                     src={Cross}
                     alt="img"
-                    style={{ fill: '#ddd' }}
+                    style={{ fill: "#ddd" }}
                   />
                 </div>
               </Draggable>

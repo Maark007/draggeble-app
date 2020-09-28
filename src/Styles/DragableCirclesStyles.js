@@ -22,6 +22,12 @@ export const Main = styled.div`
     width: 25px;
     z-index: 2;
   }
+  .ref-box {
+    height: 3px;
+    width: 3px;
+    position: absolute;
+    left: 10px;
+  }
   .blue-circle {
     height: 25px;
     width: 25px;

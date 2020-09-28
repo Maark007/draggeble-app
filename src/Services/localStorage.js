@@ -7,10 +7,5 @@ export const getLocalStorageImage = () => {
 };
 
 export const isLoggued = () => {
-  const key = localStorage.getItem("my-key");
-  if (key) {
-    return true;
-  } else {
-    return false;
-  }
+  return localStorage.getItem("my-key");
 };
