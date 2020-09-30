@@ -5,6 +5,7 @@ import BlackCross from "../Assets/BlackCross.svg";
 import RedCross from "../Assets/RedCross.svg";
 import BlueCross from "../Assets/BlueCross.svg";
 import PinkCross from "../Assets/PinkCross.svg";
+import YellowCross from "../Assets/YellowCross.svg";
 
 import {
   Main,
@@ -49,13 +50,16 @@ export default function DragableCircles() {
   //Púpila
   const secondConnectionblackBall = useRef(null);
   const secondConnectionBlueBall = useRef(null);
+  const secondConnectionYellowBall = useRef(null);
   const [secondConnectionMainBall, setSecondConnectionMainBall] = useState(
     coors
   );
   const [secondConnectionSecondBall, setSecondConnectionSecondBall] = useState(
     coors
   );
+  const [secondConnectionYellow, setSecondConnectionYellow] = useState(coors);
   const [secondConnectionDist, setSecondConnectionDist] = useState(0);
+  const [noseDist, setNoseDist] = useState(0);
 
   // Óculos
   const thirdConnectionblackBall = useRef(null);
@@ -81,12 +85,19 @@ export default function DragableCircles() {
           return thirdConnectionMainBall;
         case 6:
           return thirdConnectionthirdBall;
+        case 7:
+          return secondConnectionYellow;
         default:
           return;
       }
     };
     imageZoom("myimage", "result", zoom());
-  }, [firstConnectionDist, secondConnectionDist, thirdConnectionDist]);
+  }, [
+    firstConnectionDist,
+    secondConnectionDist,
+    thirdConnectionDist,
+    secondConnectionYellow,
+  ]);
 
   useEffect(() => {
     const { x: mainX, y: mainY } = firstConnectionMainBall;
@@ -110,6 +121,7 @@ export default function DragableCircles() {
     firstConnectionSecondBall,
     firstConnectionDist,
     secondConnectionDist,
+    thirdConnectionDist,
   ]);
 
   useEffect(() => {
@@ -129,6 +141,14 @@ export default function DragableCircles() {
 
     setThirdConnectionDist(x - mainX + y - mainY);
   }, [thirdConnectionMainBall, thirdConnectionthirdBall, thirdConnectionDist]);
+
+  useEffect(() => {
+    const { x, y } = secondConnectionSecondBall;
+    const { x: x2, y: y2 } = secondConnectionYellow;
+
+    const value = x2 - x + y2 - y;
+    setNoseDist( (value * 0.1).toFixed(2))
+  }, [secondConnectionSecondBall, secondConnectionYellow]);
 
   function updateMainBall() {
     setFirstConnectionMainBall(
@@ -152,6 +172,9 @@ export default function DragableCircles() {
     setThirdConnectionthirdBall(
       thirdConnectionPinkBall.current.getBoundingClientRect()
     );
+    setSecondConnectionYellow(
+      secondConnectionYellowBall.current.getBoundingClientRect()
+    );
   }
 
   const showInformations = () => {
@@ -160,7 +183,8 @@ export default function DragableCircles() {
       icon: "info",
       html:
         `<span>Valor da pupila: ${calculatedValues}</span>` +
-        `<span>Valor óculos: ${glassValue}</span>`,
+        `<span>Valor óculos: ${glassValue}</span>` +
+        `<span>Valor nariz: ${noseDist}</span>`,
       showCloseButton: true,
       confirmButtonText: '<i class="fa fa-thumbs-up"></i>',
     });
@@ -194,6 +218,15 @@ export default function DragableCircles() {
             x2={thirdConnectionthirdBall.x + 11}
             y2={thirdConnectionthirdBall.y + 11}
             stroke="#ff0fcf"
+          />
+        )}
+        {secondConnectionYellow.x !== 0 && (
+          <line
+            x1={secondConnectionYellow.x + 11}
+            y1={secondConnectionYellow.y + 11}
+            x2={secondConnectionSecondBall.x + 11}
+            y2={secondConnectionSecondBall.y + 11}
+            stroke="green"
           />
         )}
       </svg>
@@ -268,6 +301,7 @@ export default function DragableCircles() {
               </Draggable>
               <span className="second">Pupila</span>
             </div>
+
             <div className="drag-container">
               <Draggable
                 onStart={updateMainBall}
@@ -301,6 +335,24 @@ export default function DragableCircles() {
               </Draggable>
               <span className="third">Óculos</span>
             </div>
+            <div className="drag-container">
+              <Draggable
+                onStart={updateSecondBall}
+                onDrag={updateSecondBall}
+                onStop={() => setSelectedToZoom(null)}
+                onMouseDown={() => setSelectedToZoom(7)}
+              >
+                <div className="blue-circle">
+                  <img
+                    draggable="false"
+                    ref={secondConnectionYellowBall}
+                    src={YellowCross}
+                    alt="img"
+                  />
+                </div>
+              </Draggable>
+              <span className="green">Nariz</span>
+            </div>
             <div className="input-container">
               <input
                 id="icon-button-file"
@@ -315,6 +367,7 @@ export default function DragableCircles() {
           <div className="final-value">
             <span>Valor da pupila: {calculatedValues}</span>
             <span>Valor óculos: {glassValue}</span>
+            <span>Valor nariz: {noseDist}</span>
           </div>
         </div>
         <Button onClick={showInformations}>

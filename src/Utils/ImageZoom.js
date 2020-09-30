@@ -52,6 +52,7 @@ export function imageZoom(imgID, resultID, littleIndicator) {
 
   function getCursorPos() {
     const myCursor = littleIndicator;
+    console.log(littleIndicator)
     return { x: myCursor?.x, y: myCursor?.y };
   }
 }

@@ -72,6 +72,13 @@ export const Main = styled.div`
     width: 100px;
     text-align: center;
   }
+  .green {
+    color: green;
+    font-family: sans-serif;
+    font-size: 15px;
+    width: 100px;
+    text-align: center;
+  }
   .input-container {
     padding: 10px 5px 10px 5px;
     display: flex;
