@@ -120,10 +120,7 @@ export const Main = styled.div`
     display: none;
   }
   @media screen and (max-width: 740px) {
-    .final-value {
-      display: none;
-    }
-    .input-btn {
+    .final-value, .input-btn, .input-container {
       display: none;
     }
     .input-icon {
@@ -140,6 +137,12 @@ export const Main = styled.div`
     .all-circles-box {
       width: inherit;
       justify-content: space-between;
+    }
+    .green,
+    .third,
+    .second,
+    .first {
+      width: 50px;
     }
   }
 `;
