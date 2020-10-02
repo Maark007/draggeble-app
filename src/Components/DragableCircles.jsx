@@ -22,6 +22,7 @@ export default function DragableCircles() {
   const [selectedToZoom, setSelectedToZoom] = useState(null);
   const [calculatedValues, setCalculatedValues] = useState(0);
   const [glassValue, setGlassValue] = useState(0);
+  const [showActualCircle, setShowActualCircle] = useState([]);
 
   const getImage = (file) => {
     const reader = new FileReader();
@@ -68,7 +69,7 @@ export default function DragableCircles() {
   const [thirdConnectionthirdBall, setThirdConnectionthirdBall] = useState(
     coors
   );
-  const [thirdConnectionDist, setThirdConnectionDist] = useState(0);
+  const [thirdConnectionDist, setThirdConnectionDist] = useState();
 
   useEffect(() => {
     const zoom = () => {
@@ -147,7 +148,7 @@ export default function DragableCircles() {
     const { x: x2, y: y2 } = secondConnectionYellow;
 
     const value = x2 - x + y2 - y;
-    setNoseDist( (value * 0.1).toFixed(2))
+    setNoseDist((value * 0.1).toFixed(2));
   }, [secondConnectionSecondBall, secondConnectionYellow]);
 
   function updateMainBall() {
@@ -190,10 +191,20 @@ export default function DragableCircles() {
     });
   };
 
+  const showLines = (event, id) => {
+    if (event) {
+      setShowActualCircle((oldArray) => [...oldArray, id]);
+    } else if (showActualCircle.includes(id)) {
+      setShowActualCircle((oldArray) => oldArray.filter((e) => e !== id));
+    } else {
+      setShowActualCircle([]);
+    }
+  };
+
   return (
     <Main>
       <svg>
-        {firstConnectionMainBall.x !== 0 && (
+        {firstConnectionMainBall.x !== 0 && showActualCircle.includes(1) && (
           <line
             x1={firstConnectionMainBall.x + 11}
             y1={firstConnectionMainBall.y + 11}
@@ -202,7 +213,7 @@ export default function DragableCircles() {
             stroke="rgb(255,0,0)"
           />
         )}
-        {secondConnectionMainBall.x !== 0 && (
+        {secondConnectionMainBall.x !== 0 && showActualCircle.includes(2) && (
           <line
             x1={secondConnectionMainBall.x + 11}
             y1={secondConnectionMainBall.y + 11}
@@ -211,7 +222,7 @@ export default function DragableCircles() {
             stroke="blue"
           />
         )}
-        {thirdConnectionMainBall.x !== 0 && (
+        {thirdConnectionMainBall.x !== 0 && showActualCircle.includes(3) && (
           <line
             x1={thirdConnectionMainBall.x + 11}
             y1={thirdConnectionMainBall.y + 11}
@@ -220,7 +231,7 @@ export default function DragableCircles() {
             stroke="#ff0fcf"
           />
         )}
-        {secondConnectionYellow.x !== 0 && (
+        {secondConnectionYellow.x !== 0 && showActualCircle.includes(4) && (
           <line
             x1={secondConnectionYellow.x + 11}
             y1={secondConnectionYellow.y + 11}
@@ -266,7 +277,12 @@ export default function DragableCircles() {
                 </div>
               </Draggable>
               <span className="first">Cartão</span>
+              <input
+                type="checkbox"
+                onChange={(e) => showLines(e.target.checked, 1)}
+              />
             </div>
+
             <div className="drag-container">
               <Draggable
                 onStart={updateMainBall}
@@ -300,8 +316,11 @@ export default function DragableCircles() {
                 </div>
               </Draggable>
               <span className="second">Pupila</span>
+              <input
+                type="checkbox"
+                onChange={(e) => showLines(e.target.checked, 2)}
+              />
             </div>
-
             <div className="drag-container">
               <Draggable
                 onStart={updateMainBall}
@@ -334,7 +353,12 @@ export default function DragableCircles() {
                 </div>
               </Draggable>
               <span className="third">Óculos</span>
+              <input
+                type="checkbox"
+                onChange={(e) => showLines(e.target.checked, 3)}
+              />
             </div>
+
             <div className="drag-container">
               <Draggable
                 onStart={updateSecondBall}
@@ -352,7 +376,12 @@ export default function DragableCircles() {
                 </div>
               </Draggable>
               <span className="green">Nariz</span>
+              <input
+                type="checkbox"
+                onChange={(e) => showLines(e.target.checked, 4)}
+              />
             </div>
+
             <div className="input-container">
               <input
                 id="icon-button-file"
