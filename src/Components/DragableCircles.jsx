@@ -111,12 +111,6 @@ export default function DragableCircles() {
         (((54 * secondConnectionDist) / firstConnectionDist) * 0.1).toFixed(2)
       );
     }
-
-    if (firstConnectionDist && thirdConnectionDist) {
-      setGlassValue(
-        (((54 * thirdConnectionDist) / firstConnectionDist) * 0.1).toFixed(2)
-      );
-    }
   }, [
     firstConnectionMainBall,
     firstConnectionSecondBall,
@@ -124,6 +118,14 @@ export default function DragableCircles() {
     secondConnectionDist,
     thirdConnectionDist,
   ]);
+
+  useEffect(() => {
+    if (firstConnectionDist && thirdConnectionDist) {
+      setGlassValue(
+        (((54 * thirdConnectionDist) / firstConnectionDist) * 0.1).toFixed(2)
+      );
+    }
+  }, [firstConnectionDist, thirdConnectionDist, secondConnectionYellow]);
 
   useEffect(() => {
     const { x: mainX, y: mainY } = secondConnectionMainBall;
@@ -204,7 +206,7 @@ export default function DragableCircles() {
   return (
     <Main>
       <svg>
-        {firstConnectionMainBall.x !== 0 && showActualCircle.includes(1) && (
+        {firstConnectionMainBall.x !== 0 && !showActualCircle.includes(1) && (
           <line
             x1={firstConnectionMainBall.x + 11}
             y1={firstConnectionMainBall.y + 11}
@@ -213,7 +215,7 @@ export default function DragableCircles() {
             stroke="rgb(255,0,0)"
           />
         )}
-        {secondConnectionMainBall.x !== 0 && showActualCircle.includes(2) && (
+        {secondConnectionMainBall.x !== 0 && !showActualCircle.includes(2) && (
           <line
             x1={secondConnectionMainBall.x + 11}
             y1={secondConnectionMainBall.y + 11}
@@ -222,7 +224,7 @@ export default function DragableCircles() {
             stroke="blue"
           />
         )}
-        {thirdConnectionMainBall.x !== 0 && showActualCircle.includes(3) && (
+        {thirdConnectionMainBall.x !== 0 && !showActualCircle.includes(3) && (
           <line
             x1={thirdConnectionMainBall.x + 11}
             y1={thirdConnectionMainBall.y + 11}
@@ -231,7 +233,7 @@ export default function DragableCircles() {
             stroke="#ff0fcf"
           />
         )}
-        {secondConnectionYellow.x !== 0 && showActualCircle.includes(4) && (
+        {secondConnectionYellow.x !== 0 && !showActualCircle.includes(4) && (
           <line
             x1={secondConnectionYellow.x + 11}
             y1={secondConnectionYellow.y + 11}
@@ -252,7 +254,11 @@ export default function DragableCircles() {
                 onStop={() => setSelectedToZoom(null)}
                 onMouseDown={() => setSelectedToZoom(1)}
               >
-                <div className="black-circle">
+                <div
+                  className={`black-circle ${
+                    showActualCircle.includes(1) && "show-circle"
+                  }`}
+                >
                   <img
                     draggable="false"
                     src={BlackCross}
@@ -267,7 +273,11 @@ export default function DragableCircles() {
                 onStop={() => setSelectedToZoom(null)}
                 onMouseDown={() => setSelectedToZoom(2)}
               >
-                <div className="red-circle">
+                <div
+                  className={`red-circle ${
+                    showActualCircle.includes(1) && "show-circle"
+                  }`}
+                >
                   <img
                     draggable="false"
                     ref={firstConnectionRedBall}
@@ -290,13 +300,16 @@ export default function DragableCircles() {
                 onStop={() => setSelectedToZoom(null)}
                 onMouseDown={() => setSelectedToZoom(3)}
               >
-                <div className="black-circle">
+                <div
+                  className={`black-circle ${
+                    showActualCircle.includes(2) && "show-circle"
+                  }`}
+                >
                   <img
                     draggable="false"
                     ref={secondConnectionblackBall}
                     src={BlackCross}
                     alt="img"
-                    style={{ fill: "#ddd" }}
                   />
                 </div>
               </Draggable>
@@ -306,7 +319,11 @@ export default function DragableCircles() {
                 onStop={() => setSelectedToZoom(null)}
                 onMouseDown={() => setSelectedToZoom(4)}
               >
-                <div className="blue-circle">
+                <div
+                  className={`blue-circle ${
+                    showActualCircle.includes(2) && "show-circle"
+                  }`}
+                >
                   <img
                     draggable="false"
                     ref={secondConnectionBlueBall}
@@ -328,7 +345,11 @@ export default function DragableCircles() {
                 onStop={() => setSelectedToZoom(null)}
                 onMouseDown={() => setSelectedToZoom(5)}
               >
-                <div className="black-circle">
+                <div
+                  className={`black-circle ${
+                    showActualCircle.includes(3) && "show-circle"
+                  }`}
+                >
                   <img
                     draggable="false"
                     ref={thirdConnectionblackBall}
@@ -343,7 +364,11 @@ export default function DragableCircles() {
                 onStop={() => setSelectedToZoom(null)}
                 onMouseDown={() => setSelectedToZoom(6)}
               >
-                <div className="pink-circle">
+                <div
+                  className={`pink-circle ${
+                    showActualCircle.includes(3) && "show-circle"
+                  }`}
+                >
                   <img
                     draggable="false"
                     ref={thirdConnectionPinkBall}
@@ -366,7 +391,11 @@ export default function DragableCircles() {
                 onStop={() => setSelectedToZoom(null)}
                 onMouseDown={() => setSelectedToZoom(7)}
               >
-                <div className="blue-circle">
+                <div
+                  className={`blue-circle ${
+                    showActualCircle.includes(4) && "show-circle"
+                  }`}
+                >
                   <img
                     draggable="false"
                     ref={secondConnectionYellowBall}
