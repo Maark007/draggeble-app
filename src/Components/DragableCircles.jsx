@@ -150,7 +150,9 @@ export default function DragableCircles() {
     const { x: x2, y: y2 } = secondConnectionYellow;
 
     const value = x2 - x + y2 - y;
-    setNoseDist((value * 0.1).toFixed(2));
+    if (value) {
+      setNoseDist((value * 0.1).toFixed(2));
+    }
   }, [secondConnectionSecondBall, secondConnectionYellow]);
 
   function updateMainBall() {
