@@ -104,7 +104,12 @@ export default function DragableCircles() {
     const { x: mainX, y: mainY } = firstConnectionMainBall;
     const { x, y } = firstConnectionSecondBall;
 
-    setFirstConnectionDist(x - mainX + y - mainY);
+    const value = x - mainX + y - mainY;
+    if (value < 0) {
+      setFirstConnectionDist(value * -1);
+    } else {
+      setFirstConnectionDist(value);
+    }
 
     if (firstConnectionDist && secondConnectionDist) {
       setCalculatedValues(
@@ -131,7 +136,12 @@ export default function DragableCircles() {
     const { x: mainX, y: mainY } = secondConnectionMainBall;
     const { x, y } = secondConnectionSecondBall;
 
-    setSecondConnectionDist(x - mainX + y - mainY);
+    const value = x - mainX + y - mainY;
+    if (value < 0) {
+      setSecondConnectionDist(value * -1);
+    } else {
+      setSecondConnectionDist(value);
+    }
   }, [
     secondConnectionMainBall,
     secondConnectionSecondBall,
@@ -142,16 +152,23 @@ export default function DragableCircles() {
     const { x: mainX, y: mainY } = thirdConnectionMainBall;
     const { x, y } = thirdConnectionthirdBall;
 
-    setThirdConnectionDist(x - mainX + y - mainY);
+    const value = x - mainX + y - mainY;
+    if (value < 0) {
+      setThirdConnectionDist(value * -1);
+    } else {
+      setThirdConnectionDist(value);
+    }
   }, [thirdConnectionMainBall, thirdConnectionthirdBall, thirdConnectionDist]);
 
   useEffect(() => {
     const { x, y } = secondConnectionSecondBall;
     const { x: x2, y: y2 } = secondConnectionYellow;
 
-    const value = x2 - x + y2 - y;
-    if (value) {
-      setNoseDist((value * 0.1).toFixed(2));
+    const value = (x2 - x + y2 - y) * 0.1;
+    if (value < 0) {
+      setNoseDist((value * -1).toFixed(2));
+    } else {
+      setNoseDist(value && value.toFixed(2));
     }
   }, [secondConnectionSecondBall, secondConnectionYellow]);
 
