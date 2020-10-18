@@ -26,6 +26,7 @@ export default function DragableCircles() {
   const [glassValue, setGlassValue] = useState(0);
   const [showActualCircle, setShowActualCircle] = useState([]);
   const [image, setImage] = useState();
+  const [imageUrl, setImageUrl] = useState();
 
   // Cartão
   const firstConnectionblackBall = useRef(null);
@@ -46,9 +47,12 @@ export default function DragableCircles() {
   const [secondConnectionSecondBall, setSecondConnectionSecondBall] = useState(
     coors
   );
-  const [secondConnectionYellow, setSecondConnectionYellow] = useState(coors);
+  
   const [secondConnectionDist, setSecondConnectionDist] = useState(0);
+  
+  const [secondConnectionYellow, setSecondConnectionYellow] = useState(coors);
   const [noseDist, setNoseDist] = useState(0);
+  const [nariz, setNariz] = useState(0);
 
   // Óculos
   const thirdConnectionblackBall = useRef(null);
@@ -72,12 +76,23 @@ export default function DragableCircles() {
         image
       );
       storeFile(res.data.data.url);
+      setImageUrl(res.data.data.url);
       if (res) {
-        window.location.reload(true);
+        return window.location.reload(true);
       }
     };
     loadData();
-  }, [image]);
+    if (image && imageUrl === undefined) {
+      return Swal.fire({
+        title: "Imagem sendo enviada!",
+        html: "Imagens de grandes portes podem demorar alguns minutos.",
+        allowOutsideClick: false,
+        onBeforeOpen: () => {
+          Swal.showLoading();
+        },
+      });
+    }
+  }, [image, imageUrl]);
 
   useEffect(() => {
     const zoom = () => {
@@ -172,13 +187,23 @@ export default function DragableCircles() {
     const { x, y } = secondConnectionSecondBall;
     const { x: x2, y: y2 } = secondConnectionYellow;
 
-    const value = (x2 - x + y2 - y) * 0.1;
+    const value = x - x2 + y - y2;
+
     if (value < 0) {
-      setNoseDist((value * -1).toFixed(2));
+      setNoseDist(value * -1);
     } else {
-      setNoseDist(value && value.toFixed(2));
+      setNoseDist(value);
     }
+
   }, [secondConnectionSecondBall, secondConnectionYellow]);
+
+  useEffect(() => {
+    if (calculatedValues && noseDist) {
+      setNariz(
+        (((54 * calculatedValues) / noseDist) * 0.1).toFixed(2)
+      );
+    }
+  }, [calculatedValues, noseDist])
 
   function updateMainBall() {
     setFirstConnectionMainBall(
@@ -214,7 +239,7 @@ export default function DragableCircles() {
       html:
         `<span>Valor da pupila: ${calculatedValues}</span>` +
         `<span>Valor óculos: ${glassValue}</span>` +
-        `<span>Valor nariz: ${noseDist}</span>`,
+        `<span>Valor nariz: ${nariz}</span>`,
       showCloseButton: true,
       confirmButtonText: '<i class="fa fa-thumbs-up"></i>',
     });
@@ -457,7 +482,7 @@ export default function DragableCircles() {
           <div className="final-value">
             <span>Valor da pupila: {calculatedValues}</span>
             <span>Valor óculos: {glassValue}</span>
-            <span>Valor nariz: {noseDist}</span>
+            <span>Valor nariz: {nariz}</span>
           </div>
         </div>
         <Button onClick={showInformations}>

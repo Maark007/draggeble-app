@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Eye from "../Assets/Eye.gif";
 import axios from 'axios'
+import Swal from "sweetalert2";
 
 import { Main, Background, LoginContent, SelectImage } from "../Styles/Login";
 import { keys } from "../Model/Password";
@@ -11,6 +12,7 @@ export default function Login() {
   const [userPasssword, setUserPassword] = useState();
   const [refresh, setRefresh] = useState(false);
   const [image, setImage] = useState(false);
+  const [imageUrl, setImageUrl] = useState();
 
   const login = () => {
     if (keys.includes(userPasssword)) {
@@ -39,12 +41,23 @@ export default function Login() {
         image
       );
       storeFile(res.data.data.url);
+      setImageUrl(res.data.data.url);
       if (res) {
         window.location.reload(true);
       }
     };
     loadData();
-  }, [image]);
+    if (image && imageUrl === undefined) {
+      return Swal.fire({
+        title: "Imagem sendo enviada!",
+        html: "Imagens de grandes portes podem demorar alguns minutos.",
+        allowOutsideClick: false,
+        onBeforeOpen: () => {
+          Swal.showLoading();
+        },
+      });
+    }
+  }, [image,imageUrl]);
 
   return (
     <Main>
