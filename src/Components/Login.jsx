@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Eye from "../Assets/Eye.gif";
+import axios from 'axios'
 
 import { Main, Background, LoginContent, SelectImage } from "../Styles/Login";
 import { keys } from "../Model/Password";
@@ -9,6 +10,7 @@ import { storeFile, isLoggued } from "../Services/localStorage";
 export default function Login() {
   const [userPasssword, setUserPassword] = useState();
   const [refresh, setRefresh] = useState(false);
+  const [image, setImage] = useState(false);
 
   const login = () => {
     if (keys.includes(userPasssword)) {
@@ -25,19 +27,24 @@ export default function Login() {
   }, [refresh]);
 
   const getImage = (file) => {
-    const reader = new FileReader();
-    if (file) {
-      reader.addEventListener(
-        "load",
-        function () {
-          storeFile(reader.result);
-          window.location.reload(true);
-        },
-        false
-      );
-      reader.readAsDataURL(file);
-    }
+    const formData = new FormData();
+    formData.append("image", file, "image");
+    setImage(formData);
   };
+
+  useEffect(() => {
+    const loadData = async () => {
+      const res = await axios.post(
+        `https://api.imgbb.com/1/upload?expiration=600&key=4c9f40434fdc936b5964ba1f1b8c95db`,
+        image
+      );
+      storeFile(res.data.data.url);
+      if (res) {
+        window.location.reload(true);
+      }
+    };
+    loadData();
+  }, [image]);
 
   return (
     <Main>

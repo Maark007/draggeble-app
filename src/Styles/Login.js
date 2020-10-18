@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
 
 export const Main = styled.div`
   background: linear-gradient(90deg, #0c2646 30%, #204065 90%, #2a5788);
@@ -10,7 +9,7 @@ export const Main = styled.div`
   align-items: center;
 `;
 
-export const Background = styled(motion.div)`
+export const Background = styled.div`
   height: 400px;
   width: 350px;
   background: #fff;

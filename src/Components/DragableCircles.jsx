@@ -27,33 +27,6 @@ export default function DragableCircles() {
   const [showActualCircle, setShowActualCircle] = useState([]);
   const [image, setImage] = useState();
 
-  const getImage = (file) => {
-    const reader = new FileReader();
-    if (file) {
-      reader.addEventListener(
-        "load",
-        function () {
-          setImage(reader.result);
-        },
-        false
-      );
-      reader.readAsDataURL(file);
-    }
-  };
-
-  useEffect(() => {
-    const loadData = async () => {
-      if (image) {
-        const res = await axios.post('https://api.imgbb.com/1/upload', {
-          image: image,
-          key: process.env.REACT_APP_KEY,
-        });
-        console.log(res);
-      }
-    };
-    loadData();
-  }, [image]);
-
   // Cartão
   const firstConnectionblackBall = useRef(null);
   const firstConnectionRedBall = useRef(null);
@@ -85,6 +58,26 @@ export default function DragableCircles() {
     coors
   );
   const [thirdConnectionDist, setThirdConnectionDist] = useState();
+
+  const getImage = (file) => {
+    const formData = new FormData();
+    formData.append("image", file, "image");
+    setImage(formData);
+  };
+
+  useEffect(() => {
+    const loadData = async () => {
+      const res = await axios.post(
+        `https://api.imgbb.com/1/upload?expiration=600&key=4c9f40434fdc936b5964ba1f1b8c95db`,
+        image
+      );
+      storeFile(res.data.data.url);
+      if (res) {
+        window.location.reload(true);
+      }
+    };
+    loadData();
+  }, [image]);
 
   useEffect(() => {
     const zoom = () => {
