@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import Swal from "sweetalert2";
+import axios from "axios";
+
 import BlackCross from "../Assets/BlackCross.svg";
 import RedCross from "../Assets/RedCross.svg";
 import BlueCross from "../Assets/BlueCross.svg";
@@ -23,6 +25,7 @@ export default function DragableCircles() {
   const [calculatedValues, setCalculatedValues] = useState(0);
   const [glassValue, setGlassValue] = useState(0);
   const [showActualCircle, setShowActualCircle] = useState([]);
+  const [image, setImage] = useState();
 
   const getImage = (file) => {
     const reader = new FileReader();
@@ -30,14 +33,26 @@ export default function DragableCircles() {
       reader.addEventListener(
         "load",
         function () {
-          storeFile(reader.result);
-          window.location.reload(true);
+          setImage(reader.result);
         },
         false
       );
       reader.readAsDataURL(file);
     }
   };
+
+  useEffect(() => {
+    const loadData = async () => {
+      if (image) {
+        const res = await axios.post('https://api.imgbb.com/1/upload', {
+          image: image,
+          key: process.env.REACT_APP_KEY,
+        });
+        console.log(res);
+      }
+    };
+    loadData();
+  }, [image]);
 
   // Cartão
   const firstConnectionblackBall = useRef(null);
@@ -262,7 +277,12 @@ export default function DragableCircles() {
           />
         )}
       </svg>
-      <Img id="myimage" src={getLocalStorageImage()} alt="background" />
+      <Img
+        loading="lazy"
+        id="myimage"
+        src={getLocalStorageImage()}
+        alt="background"
+      />
       <FloatOptions>
         <div className="float-container">
           <div className="all-circles-box">

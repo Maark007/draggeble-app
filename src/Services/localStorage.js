@@ -1,5 +1,10 @@
 export const storeFile = (file) => {
-  return localStorage.setItem("my-image", file);
+  try {
+    const item = localStorage.setItem("my-image", file);
+    return item;
+  } catch {
+    return alert("Foto de tamanho excessivo, Por favor, selecione outra foto.");
+  }
 };
 
 export const getLocalStorageImage = () => {
