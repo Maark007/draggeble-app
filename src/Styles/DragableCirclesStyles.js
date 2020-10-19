@@ -93,7 +93,7 @@ export const Main = styled.div`
     width: 200px;
     span {
       font-family: sans-serif;
-      font-size: 18px;
+      font-size: 16px;
     }
   }
   .all-circles-box {
@@ -119,8 +119,10 @@ export const Main = styled.div`
   .input-icon {
     display: none;
   }
-  @media screen and (max-width: 740px) {
-    .final-value, .input-btn, .input-container {
+  @media screen and (max-width: 800px) {
+    .final-value,
+    .input-btn,
+    .input-container {
       display: none;
     }
     .input-icon {
@@ -129,8 +131,12 @@ export const Main = styled.div`
       top: 0;
       left: 0;
       margin: 17px;
+      background: #fff;
+      padding: 10px;
+      border-radius: 50%;
       i {
-        font-size: 22px;
+        cursor: pointer;
+        font-size: 18px;
         color: royalblue;
       }
     }
@@ -165,7 +171,7 @@ export const FloatOptions = styled.div`
     margin: 5px;
     border-radius: 5px;
   }
-  @media screen and (max-width: 740px) {
+  @media screen and (max-width: 800px) {
     justify-content: center;
     align-items: flex-end;
   }
@@ -182,7 +188,7 @@ export const Button = styled.button`
   width: 30px;
   border: none;
   border-radius: 50%;
-  @media screen and (max-width: 740px) {
+  @media screen and (max-width: 800px) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -207,4 +213,8 @@ export const FloatWindow = styled.div`
   width: 200px;
   margin: 10px;
   border-radius: 50%;
+
+  @media screen and (max-width: 800px) {
+    display: none !important;
+  }
 `;

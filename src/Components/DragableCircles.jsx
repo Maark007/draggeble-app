@@ -3,7 +3,6 @@ import Draggable from "react-draggable";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-import BlackCross from "../Assets/BlackCross.svg";
 import RedCross from "../Assets/RedCross.svg";
 import BlueCross from "../Assets/BlueCross.svg";
 import PinkCross from "../Assets/PinkCross.svg";
@@ -27,6 +26,7 @@ export default function DragableCircles() {
   const [showActualCircle, setShowActualCircle] = useState([]);
   const [image, setImage] = useState();
   const [imageUrl, setImageUrl] = useState();
+  const [dnpDifference, setDnpDifferente] = useState(0);
 
   // Cartão
   const firstConnectionblackBall = useRef(null);
@@ -47,9 +47,9 @@ export default function DragableCircles() {
   const [secondConnectionSecondBall, setSecondConnectionSecondBall] = useState(
     coors
   );
-  
   const [secondConnectionDist, setSecondConnectionDist] = useState(0);
-  
+
+  // Nariz
   const [secondConnectionYellow, setSecondConnectionYellow] = useState(coors);
   const [noseDist, setNoseDist] = useState(0);
   const [nariz, setNariz] = useState(0);
@@ -123,6 +123,7 @@ export default function DragableCircles() {
     secondConnectionYellow,
   ]);
 
+  // Cartão
   useEffect(() => {
     const { x: mainX, y: mainY } = firstConnectionMainBall;
     const { x, y } = firstConnectionSecondBall;
@@ -133,28 +134,17 @@ export default function DragableCircles() {
     } else {
       setFirstConnectionDist(value);
     }
-
-    if (firstConnectionDist && secondConnectionDist) {
-      setCalculatedValues(
-        (((54 * secondConnectionDist) / firstConnectionDist) * 0.1).toFixed(2)
-      );
-    }
-  }, [
-    firstConnectionMainBall,
-    firstConnectionSecondBall,
-    firstConnectionDist,
-    secondConnectionDist,
-    thirdConnectionDist,
-  ]);
+  }, [firstConnectionMainBall, firstConnectionSecondBall]);
 
   useEffect(() => {
-    if (firstConnectionDist && thirdConnectionDist) {
-      setGlassValue(
-        (((54 * thirdConnectionDist) / firstConnectionDist) * 0.1).toFixed(2)
+    if (firstConnectionDist && secondConnectionDist) {
+      setCalculatedValues(
+        (((85 * secondConnectionDist) / firstConnectionDist) * 0.1).toFixed(2)
       );
     }
-  }, [firstConnectionDist, thirdConnectionDist, secondConnectionYellow]);
+  }, [firstConnectionDist, secondConnectionDist]);
 
+  /// DP / Pupila
   useEffect(() => {
     const { x: mainX, y: mainY } = secondConnectionMainBall;
     const { x, y } = secondConnectionSecondBall;
@@ -165,12 +155,9 @@ export default function DragableCircles() {
     } else {
       setSecondConnectionDist(value);
     }
-  }, [
-    secondConnectionMainBall,
-    secondConnectionSecondBall,
-    secondConnectionDist,
-  ]);
+  }, [secondConnectionMainBall, secondConnectionSecondBall]);
 
+  //// Óculos / Altura
   useEffect(() => {
     const { x: mainX, y: mainY } = thirdConnectionMainBall;
     const { x, y } = thirdConnectionthirdBall;
@@ -181,29 +168,41 @@ export default function DragableCircles() {
     } else {
       setThirdConnectionDist(value);
     }
-  }, [thirdConnectionMainBall, thirdConnectionthirdBall, thirdConnectionDist]);
+  }, [thirdConnectionMainBall, thirdConnectionthirdBall]);
 
   useEffect(() => {
-    const { x, y } = secondConnectionSecondBall;
-    const { x: x2, y: y2 } = secondConnectionYellow;
+    if (firstConnectionDist && thirdConnectionDist) {
+      setGlassValue(
+        (((85 * thirdConnectionDist) / firstConnectionDist) * 0.1).toFixed(2)
+      );
+    }
+  }, [firstConnectionDist, thirdConnectionDist]);
 
-    const value = x - x2 + y - y2;
+  /// Nariz / DNP
+  useEffect(() => {
+    const { x: mainX, y: mainY } = secondConnectionSecondBall;
+    const { x, y } = secondConnectionYellow;
+
+    const value = x - mainX + y - mainY;
 
     if (value < 0) {
       setNoseDist(value * -1);
     } else {
       setNoseDist(value);
     }
-
   }, [secondConnectionSecondBall, secondConnectionYellow]);
 
   useEffect(() => {
-    if (calculatedValues && noseDist) {
-      setNariz(
-        (((54 * calculatedValues) / noseDist) * 0.1).toFixed(2)
-      );
+    if (noseDist && firstConnectionDist) {
+      setNariz((((85 * noseDist) / firstConnectionDist) * 0.1).toFixed(2));
     }
-  }, [calculatedValues, noseDist])
+  }, [noseDist, firstConnectionDist]);
+
+  useEffect(() => {
+    if (nariz && calculatedValues) {
+      setDnpDifferente((calculatedValues - nariz).toFixed(2));
+    }
+  }, [nariz, calculatedValues]);
 
   function updateMainBall() {
     setFirstConnectionMainBall(
@@ -237,9 +236,10 @@ export default function DragableCircles() {
       title: "Dados",
       icon: "info",
       html:
-        `<span>Valor da pupila: ${calculatedValues}</span>` +
-        `<span>Valor óculos: ${glassValue}</span>` +
-        `<span>Valor nariz: ${nariz}</span>`,
+        `<span>DP: ${calculatedValues}</span>` +
+        `<span>DNP OD: ${nariz}</span>` +
+        `<span>DNP OE: ${dnpDifference}</span>` +
+        `<span>Altura: ${glassValue}</span>`,
       showCloseButton: true,
       confirmButtonText: '<i class="fa fa-thumbs-up"></i>',
     });
@@ -258,7 +258,7 @@ export default function DragableCircles() {
   return (
     <Main>
       <svg>
-        {firstConnectionMainBall.x !== 0 && !showActualCircle.includes(1) && (
+        {/* {firstConnectionMainBall.x !== 0 && !showActualCircle.includes(1) && (
           <line
             x1={firstConnectionMainBall.x + 11}
             y1={firstConnectionMainBall.y + 11}
@@ -293,7 +293,7 @@ export default function DragableCircles() {
             y2={secondConnectionSecondBall.y + 11}
             stroke="green"
           />
-        )}
+        )} */}
       </svg>
       <Img
         loading="lazy"
@@ -318,7 +318,7 @@ export default function DragableCircles() {
                 >
                   <img
                     draggable="false"
-                    src={BlackCross}
+                    src={RedCross}
                     ref={firstConnectionblackBall}
                     alt="img"
                   />
@@ -365,7 +365,7 @@ export default function DragableCircles() {
                   <img
                     draggable="false"
                     ref={secondConnectionblackBall}
-                    src={BlackCross}
+                    src={BlueCross}
                     alt="img"
                   />
                 </div>
@@ -389,10 +389,36 @@ export default function DragableCircles() {
                   />
                 </div>
               </Draggable>
-              <span className="second">Pupila</span>
+              <span className="second">DP</span>
               <input
                 type="checkbox"
                 onChange={(e) => showLines(e.target.checked, 2)}
+              />
+            </div>
+            <div className="drag-container">
+              <Draggable
+                onStart={updateSecondBall}
+                onDrag={updateSecondBall}
+                onStop={() => setSelectedToZoom(null)}
+                onMouseDown={() => setSelectedToZoom(7)}
+              >
+                <div
+                  className={`blue-circle ${
+                    showActualCircle.includes(4) && "show-circle"
+                  }`}
+                >
+                  <img
+                    draggable="false"
+                    ref={secondConnectionYellowBall}
+                    src={YellowCross}
+                    alt="img"
+                  />
+                </div>
+              </Draggable>
+              <span className="green">DNP</span>
+              <input
+                type="checkbox"
+                onChange={(e) => showLines(e.target.checked, 4)}
               />
             </div>
             <div className="drag-container">
@@ -410,7 +436,7 @@ export default function DragableCircles() {
                   <img
                     draggable="false"
                     ref={thirdConnectionblackBall}
-                    src={BlackCross}
+                    src={PinkCross}
                     alt="img"
                   />
                 </div>
@@ -434,40 +460,12 @@ export default function DragableCircles() {
                   />
                 </div>
               </Draggable>
-              <span className="third">Óculos</span>
+              <span className="third">Altura</span>
               <input
                 type="checkbox"
                 onChange={(e) => showLines(e.target.checked, 3)}
               />
             </div>
-
-            <div className="drag-container">
-              <Draggable
-                onStart={updateSecondBall}
-                onDrag={updateSecondBall}
-                onStop={() => setSelectedToZoom(null)}
-                onMouseDown={() => setSelectedToZoom(7)}
-              >
-                <div
-                  className={`blue-circle ${
-                    showActualCircle.includes(4) && "show-circle"
-                  }`}
-                >
-                  <img
-                    draggable="false"
-                    ref={secondConnectionYellowBall}
-                    src={YellowCross}
-                    alt="img"
-                  />
-                </div>
-              </Draggable>
-              <span className="green">Nariz</span>
-              <input
-                type="checkbox"
-                onChange={(e) => showLines(e.target.checked, 4)}
-              />
-            </div>
-
             <div className="input-container">
               <input
                 id="icon-button-file"
@@ -480,9 +478,10 @@ export default function DragableCircles() {
             </div>
           </div>
           <div className="final-value">
-            <span>Valor da pupila: {calculatedValues}</span>
-            <span>Valor óculos: {glassValue}</span>
-            <span>Valor nariz: {nariz}</span>
+            <span>DP: {calculatedValues}</span>
+            <span>DNP OD: {nariz}</span>
+            <span>DNP OE: {dnpDifference}</span>
+            <span>Altura: {glassValue}</span>
           </div>
         </div>
         <Button onClick={showInformations}>
