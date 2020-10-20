@@ -7,6 +7,7 @@ import RedCross from "../Assets/RedCross.svg";
 import BlueCross from "../Assets/BlueCross.svg";
 import PinkCross from "../Assets/PinkCross.svg";
 import YellowCross from "../Assets/YellowCross.svg";
+import HalfCross from "../Assets/HalfCross.svg";
 
 import {
   Main,
@@ -75,13 +76,16 @@ export default function DragableCircles() {
         `https://api.imgbb.com/1/upload?expiration=600&key=4c9f40434fdc936b5964ba1f1b8c95db`,
         image
       );
-      storeFile(res.data.data.url);
-      setImageUrl(res.data.data.url);
       if (res) {
+        storeFile(res.data.data.url);
+        setImageUrl(res.data.data.url);
         return window.location.reload(true);
       }
     };
     loadData();
+  }, [image, imageUrl]);
+
+  useEffect(() => {
     if (image && imageUrl === undefined) {
       return Swal.fire({
         title: "Imagem sendo enviada!",
@@ -139,7 +143,11 @@ export default function DragableCircles() {
   useEffect(() => {
     if (firstConnectionDist && secondConnectionDist) {
       setCalculatedValues(
-        (((85 * secondConnectionDist) / firstConnectionDist) * 0.1).toFixed(2)
+        (
+          ((85 * secondConnectionDist) / firstConnectionDist) *
+          0.1 *
+          10
+        ).toFixed(2)
       );
     }
   }, [firstConnectionDist, secondConnectionDist]);
@@ -368,6 +376,8 @@ export default function DragableCircles() {
                     src={BlueCross}
                     alt="img"
                   />
+                  
+                  <span className="od">OE</span>
                 </div>
               </Draggable>
               <Draggable
@@ -384,9 +394,10 @@ export default function DragableCircles() {
                   <img
                     draggable="false"
                     ref={secondConnectionBlueBall}
-                    src={BlueCross}
+                    src={HalfCross}
                     alt="img"
                   />
+                  <span className="od">OD</span>
                 </div>
               </Draggable>
               <span className="second">DP</span>

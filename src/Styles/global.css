@@ -55,3 +55,11 @@ svg {
 .show-circle {
   visibility: hidden;
 }
+
+.od {
+  position: absolute;
+  bottom: -4px;
+  right: -15px;
+  font-size: 13px;
+  font-weight: bold;
+}

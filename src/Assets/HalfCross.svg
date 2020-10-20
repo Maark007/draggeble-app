@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg style="fill:#000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg fill="url(#half_grad)"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 496 496"  xml:space="preserve">
+	 <defs>
+        <linearGradient id="half_grad">
+            <stop offset="50%"  stop-color="blue"  />
+            <stop offset="50%" stop-color="green" />
+        </linearGradient>
+    </defs>
 <g>
 	<g>
 		<g>
