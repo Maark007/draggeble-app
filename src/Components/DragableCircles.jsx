@@ -144,7 +144,7 @@ export default function DragableCircles() {
     if (firstConnectionDist && secondConnectionDist) {
       setCalculatedValues(
         (
-          ((85 * secondConnectionDist) / firstConnectionDist) *
+          ((86 * secondConnectionDist) / firstConnectionDist) *
           0.1 *
           10
         ).toFixed(2)
@@ -181,7 +181,7 @@ export default function DragableCircles() {
   useEffect(() => {
     if (firstConnectionDist && thirdConnectionDist) {
       setGlassValue(
-        (((85 * thirdConnectionDist) / firstConnectionDist) * 0.1).toFixed(2)
+        (((86 * thirdConnectionDist) / firstConnectionDist) * 0.1).toFixed(2)
       );
     }
   }, [firstConnectionDist, thirdConnectionDist]);
@@ -202,7 +202,7 @@ export default function DragableCircles() {
 
   useEffect(() => {
     if (noseDist && firstConnectionDist) {
-      setNariz((((85 * noseDist) / firstConnectionDist) * 0.1).toFixed(2));
+      setNariz((((86 * noseDist) / firstConnectionDist) * 0.1).toFixed(2));
     }
   }, [noseDist, firstConnectionDist]);
 
@@ -424,6 +424,7 @@ export default function DragableCircles() {
                     src={YellowCross}
                     alt="img"
                   />
+                  <span className="od">OD</span>
                 </div>
               </Draggable>
               <span className="green">DNP</span>
