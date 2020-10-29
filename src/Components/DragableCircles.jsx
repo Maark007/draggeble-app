@@ -17,7 +17,6 @@ import {
   FloatWindow,
 } from "../Styles/DragableCirclesStyles";
 import { storeFile, getLocalStorageImage } from "../Services/localStorage";
-import { imageZoom } from "../Utils/ImageZoom";
 
 export default function DragableCircles() {
   const coors = { x: 0, y: 0 };
@@ -98,35 +97,6 @@ export default function DragableCircles() {
     }
   }, [image, imageUrl]);
 
-  useEffect(() => {
-    const zoom = () => {
-      switch (selectedToZoom) {
-        case 1:
-          return firstConnectionMainBall;
-        case 2:
-          return firstConnectionSecondBall;
-        case 3:
-          return secondConnectionMainBall;
-        case 4:
-          return secondConnectionSecondBall;
-        case 5:
-          return thirdConnectionMainBall;
-        case 6:
-          return thirdConnectionthirdBall;
-        case 7:
-          return secondConnectionYellow;
-        default:
-          return;
-      }
-    };
-    imageZoom("myimage", "result", zoom());
-  }, [
-    firstConnectionDist,
-    secondConnectionDist,
-    thirdConnectionDist,
-    secondConnectionYellow,
-  ]);
-
   // Cartão
   useEffect(() => {
     const { x: mainX, y: mainY } = firstConnectionMainBall;
@@ -142,13 +112,14 @@ export default function DragableCircles() {
 
   useEffect(() => {
     if (firstConnectionDist && secondConnectionDist) {
-      setCalculatedValues(
-        (
-          ((86 * secondConnectionDist) / firstConnectionDist) *
-          0.1 *
-          10
-        ).toFixed(2)
-      );
+      function round(value, step) {
+        step || (step = 1.0);
+        var inv = 1.0 / step;
+        return Math.round(value * inv) / inv;
+      }
+      const calc =
+        ((86 * secondConnectionDist) / firstConnectionDist) * 0.1 * 10;
+      setCalculatedValues(round(calc, 0.5));
     }
   }, [firstConnectionDist, secondConnectionDist]);
 
@@ -180,9 +151,14 @@ export default function DragableCircles() {
 
   useEffect(() => {
     if (firstConnectionDist && thirdConnectionDist) {
-      setGlassValue(
-        (((86 * thirdConnectionDist) / firstConnectionDist) * 0.1).toFixed(2)
-      );
+      function round(value, step) {
+        step || (step = 1.0);
+        var inv = 1.0 / step;
+        return Math.round(value * inv) / inv;
+      }
+      const calc =
+        ((86 * thirdConnectionDist) / firstConnectionDist) * 0.1 * 10;
+      setGlassValue(round(calc, 0.5));
     }
   }, [firstConnectionDist, thirdConnectionDist]);
 
@@ -202,13 +178,32 @@ export default function DragableCircles() {
 
   useEffect(() => {
     if (noseDist && firstConnectionDist) {
-      setNariz((((86 * noseDist) / firstConnectionDist) * 0.1).toFixed(2));
+      function round(value, step) {
+        step || (step = 1.0);
+        var inv = 1.0 / step;
+        return Math.round(value * inv) / inv;
+      }
+      const calc = ((86 * noseDist) / firstConnectionDist) * 0.1 * 10;
+      setNariz(round(calc, 0.5));
     }
   }, [noseDist, firstConnectionDist]);
 
   useEffect(() => {
     if (nariz && calculatedValues) {
-      setDnpDifferente((calculatedValues - nariz).toFixed(2));
+      const math = calculatedValues - nariz;
+
+      function round(value, step) {
+        step || (step = 1.0);
+        var inv = 1.0 / step;
+        return Math.round(value * inv) / inv;
+      }
+
+      if (math < 0) {
+        const calc = math * -1;
+        setDnpDifferente(round(calc, 0.5));
+      } else {
+        setDnpDifferente(round(math, 0.5));
+      }
     }
   }, [nariz, calculatedValues]);
 
@@ -376,7 +371,7 @@ export default function DragableCircles() {
                     src={BlueCross}
                     alt="img"
                   />
-                  
+
                   <span className="od">OE</span>
                 </div>
               </Draggable>
@@ -394,7 +389,7 @@ export default function DragableCircles() {
                   <img
                     draggable="false"
                     ref={secondConnectionBlueBall}
-                    src={HalfCross}
+                    src={BlueCross}
                     alt="img"
                   />
                   <span className="od">OD</span>
@@ -424,7 +419,7 @@ export default function DragableCircles() {
                     src={YellowCross}
                     alt="img"
                   />
-                  <span className="od">OD</span>
+                  <span>N</span>
                 </div>
               </Draggable>
               <span className="green">DNP</span>
@@ -505,11 +500,11 @@ export default function DragableCircles() {
           </span>
         </label>
       </FloatOptions>
-      {selectedToZoom && (
+      {/* {selectedToZoom && (
         <FloatWindow className="img-zoom-lens" id="result">
           <div className="zoom-circle" />
         </FloatWindow>
-      )}
+      )} */}
     </Main>
   );
 }
