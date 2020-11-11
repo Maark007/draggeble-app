@@ -7,14 +7,12 @@ import RedCross from "../Assets/RedCross.svg";
 import BlueCross from "../Assets/BlueCross.svg";
 import PinkCross from "../Assets/PinkCross.svg";
 import YellowCross from "../Assets/YellowCross.svg";
-import HalfCross from "../Assets/HalfCross.svg";
 
 import {
   Main,
   FloatOptions,
   Button,
   Img,
-  FloatWindow,
 } from "../Styles/DragableCirclesStyles";
 import { storeFile, getLocalStorageImage } from "../Services/localStorage";
 
@@ -68,6 +66,8 @@ export default function DragableCircles() {
     formData.append("image", file, "image");
     setImage(formData);
   };
+
+  console.log(getLocalStorageImage());
 
   useEffect(() => {
     const loadData = async () => {
