@@ -200,9 +200,6 @@ export const Img = styled.img`
   width: 100%;
   position: absolute;
   object-fit: cover;
-  @media screen and (max-width: 800px) {
-    object-fit: none;
-  }
 `;
 
 export const FloatWindow = styled.div`
