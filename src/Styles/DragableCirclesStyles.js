@@ -199,7 +199,7 @@ export const Img = styled.img`
   height: 100vh;
   width: 100%;
   position: absolute;
-  object-fit: contain;
+  object-fit: none;
 `;
 
 export const FloatWindow = styled.div`
