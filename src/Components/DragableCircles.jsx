@@ -3,22 +3,17 @@ import Draggable from "react-draggable";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-import RedCross from "../Assets/RedCross.svg";
-import BlueCross from "../Assets/BlueCross.svg";
-import PinkCross from "../Assets/PinkCross.svg";
-import YellowCross from "../Assets/YellowCross.svg";
-
 import {
   Main,
   FloatOptions,
   Button,
   Img,
+  Circle,
 } from "../Styles/DragableCirclesStyles";
 import { storeFile, getLocalStorageImage } from "../Services/localStorage";
 
 export default function DragableCircles() {
   const coors = { x: 0, y: 0 };
-  const [selectedToZoom, setSelectedToZoom] = useState(null);
   const [calculatedValues, setCalculatedValues] = useState(0);
   const [glassValue, setGlassValue] = useState(0);
   const [showActualCircle, setShowActualCircle] = useState([]);
@@ -67,8 +62,6 @@ export default function DragableCircles() {
     setImage(formData);
   };
 
-  console.log(getLocalStorageImage());
-
   useEffect(() => {
     const loadData = async () => {
       const res = await axios.post(
@@ -83,6 +76,13 @@ export default function DragableCircles() {
     };
     loadData();
   }, [image, imageUrl]);
+
+  const ONE_HOUR_IN_MILISECONDS = 3600000;
+
+  setTimeout(() => {
+    const removePicture = localStorage.removeItem("my-image");
+    return removePicture;
+  }, ONE_HOUR_IN_MILISECONDS);
 
   useEffect(() => {
     if (image && imageUrl === undefined) {
@@ -260,44 +260,6 @@ export default function DragableCircles() {
 
   return (
     <Main>
-      <svg>
-        {/* {firstConnectionMainBall.x !== 0 && !showActualCircle.includes(1) && (
-          <line
-            x1={firstConnectionMainBall.x + 11}
-            y1={firstConnectionMainBall.y + 11}
-            x2={firstConnectionSecondBall.x + 11}
-            y2={firstConnectionSecondBall.y + 11}
-            stroke="rgb(255,0,0)"
-          />
-        )}
-        {secondConnectionMainBall.x !== 0 && !showActualCircle.includes(2) && (
-          <line
-            x1={secondConnectionMainBall.x + 11}
-            y1={secondConnectionMainBall.y + 11}
-            x2={secondConnectionSecondBall.x + 11}
-            y2={secondConnectionSecondBall.y + 11}
-            stroke="blue"
-          />
-        )}
-        {thirdConnectionMainBall.x !== 0 && !showActualCircle.includes(3) && (
-          <line
-            x1={thirdConnectionMainBall.x + 11}
-            y1={thirdConnectionMainBall.y + 11}
-            x2={thirdConnectionthirdBall.x + 11}
-            y2={thirdConnectionthirdBall.y + 11}
-            stroke="#ff0fcf"
-          />
-        )}
-        {secondConnectionYellow.x !== 0 && !showActualCircle.includes(4) && (
-          <line
-            x1={secondConnectionYellow.x + 11}
-            y1={secondConnectionYellow.y + 11}
-            x2={secondConnectionSecondBall.x + 11}
-            y2={secondConnectionSecondBall.y + 11}
-            stroke="green"
-          />
-        )} */}
-      </svg>
       <Img
         loading="lazy"
         id="myimage"
@@ -308,42 +270,36 @@ export default function DragableCircles() {
         <div className="float-container">
           <div className="all-circles-box">
             <div className="drag-container">
-              <Draggable
-                onStart={updateMainBall}
-                onDrag={updateMainBall}
-                onStop={() => setSelectedToZoom(null)}
-                onMouseDown={() => setSelectedToZoom(1)}
-              >
+              <Draggable onStart={updateMainBall} onDrag={updateMainBall}>
                 <div
                   className={`black-circle ${
                     showActualCircle.includes(1) && "show-circle"
                   }`}
                 >
-                  <img
-                    draggable="false"
-                    src={RedCross}
-                    ref={firstConnectionblackBall}
-                    alt="img"
-                  />
+                  <Circle color="red">
+                    <div className="cross-circle">
+                      <div
+                        className="capture-data"
+                        ref={firstConnectionblackBall}
+                      />
+                    </div>
+                  </Circle>
                 </div>
               </Draggable>
-              <Draggable
-                onStart={updateSecondBall}
-                onDrag={updateSecondBall}
-                onStop={() => setSelectedToZoom(null)}
-                onMouseDown={() => setSelectedToZoom(2)}
-              >
+              <Draggable onStart={updateSecondBall} onDrag={updateSecondBall}>
                 <div
                   className={`red-circle ${
                     showActualCircle.includes(1) && "show-circle"
                   }`}
                 >
-                  <img
-                    draggable="false"
-                    ref={firstConnectionRedBall}
-                    src={RedCross}
-                    alt="img"
-                  />
+                  <Circle color="red">
+                    <div className="cross-circle">
+                      <div
+                        className="capture-data"
+                        ref={firstConnectionRedBall}
+                      />
+                    </div>
+                  </Circle>
                 </div>
               </Draggable>
               <span className="first">Cartão</span>
@@ -354,44 +310,39 @@ export default function DragableCircles() {
             </div>
 
             <div className="drag-container">
-              <Draggable
-                onStart={updateMainBall}
-                onDrag={updateMainBall}
-                onStop={() => setSelectedToZoom(null)}
-                onMouseDown={() => setSelectedToZoom(3)}
-              >
+              <Draggable onStart={updateMainBall} onDrag={updateMainBall}>
                 <div
                   className={`black-circle ${
                     showActualCircle.includes(2) && "show-circle"
                   }`}
                 >
-                  <img
-                    draggable="false"
-                    ref={secondConnectionblackBall}
-                    src={BlueCross}
-                    alt="img"
-                  />
+                  <Circle color="blue">
+                    <div className="cross-circle">
+                      <div
+                        className="capture-data"
+                        ref={secondConnectionblackBall}
+                      />
+                    </div>
+                  </Circle>
 
                   <span className="od">OE</span>
                 </div>
               </Draggable>
-              <Draggable
-                onStart={updateSecondBall}
-                onDrag={updateSecondBall}
-                onStop={() => setSelectedToZoom(null)}
-                onMouseDown={() => setSelectedToZoom(4)}
-              >
+              <Draggable onStart={updateSecondBall} onDrag={updateSecondBall}>
                 <div
                   className={`blue-circle ${
                     showActualCircle.includes(2) && "show-circle"
                   }`}
                 >
-                  <img
-                    draggable="false"
-                    ref={secondConnectionBlueBall}
-                    src={BlueCross}
-                    alt="img"
-                  />
+                  <Circle color="blue">
+                    <div className="cross-circle">
+                      <div
+                        className="capture-data"
+                        ref={secondConnectionBlueBall}
+                      />
+                    </div>
+                  </Circle>
+
                   <span className="od">OD</span>
                 </div>
               </Draggable>
@@ -402,24 +353,21 @@ export default function DragableCircles() {
               />
             </div>
             <div className="drag-container">
-              <Draggable
-                onStart={updateSecondBall}
-                onDrag={updateSecondBall}
-                onStop={() => setSelectedToZoom(null)}
-                onMouseDown={() => setSelectedToZoom(7)}
-              >
+              <Draggable onStart={updateSecondBall} onDrag={updateSecondBall}>
                 <div
                   className={`blue-circle ${
                     showActualCircle.includes(4) && "show-circle"
                   }`}
                 >
-                  <img
-                    draggable="false"
-                    ref={secondConnectionYellowBall}
-                    src={YellowCross}
-                    alt="img"
-                  />
-                  <span>N</span>
+                  <Circle color="green">
+                    <div className="cross-circle">
+                      <div
+                        className="capture-data"
+                        ref={secondConnectionYellowBall}
+                      />
+                    </div>
+                  </Circle>
+                  <span className="od">N</span>
                 </div>
               </Draggable>
               <span className="green">DNP</span>
@@ -429,42 +377,36 @@ export default function DragableCircles() {
               />
             </div>
             <div className="drag-container">
-              <Draggable
-                onStart={updateMainBall}
-                onDrag={updateMainBall}
-                onStop={() => setSelectedToZoom(null)}
-                onMouseDown={() => setSelectedToZoom(5)}
-              >
+              <Draggable onStart={updateMainBall} onDrag={updateMainBall}>
                 <div
                   className={`black-circle ${
                     showActualCircle.includes(3) && "show-circle"
                   }`}
                 >
-                  <img
-                    draggable="false"
-                    ref={thirdConnectionblackBall}
-                    src={PinkCross}
-                    alt="img"
-                  />
+                  <Circle color="#ff0fcf;">
+                    <div className="cross-circle">
+                      <div
+                        className="capture-data"
+                        ref={thirdConnectionblackBall}
+                      />
+                    </div>
+                  </Circle>
                 </div>
               </Draggable>
-              <Draggable
-                onStart={updateSecondBall}
-                onDrag={updateSecondBall}
-                onStop={() => setSelectedToZoom(null)}
-                onMouseDown={() => setSelectedToZoom(6)}
-              >
+              <Draggable onStart={updateSecondBall} onDrag={updateSecondBall}>
                 <div
                   className={`pink-circle ${
                     showActualCircle.includes(3) && "show-circle"
                   }`}
                 >
-                  <img
-                    draggable="false"
-                    ref={thirdConnectionPinkBall}
-                    src={PinkCross}
-                    alt="img"
-                  />
+                  <Circle color="#ff0fcf;">
+                    <div className="cross-circle">
+                      <div
+                        className="capture-data"
+                        ref={thirdConnectionPinkBall}
+                      />
+                    </div>
+                  </Circle>
                 </div>
               </Draggable>
               <span className="third">Altura</span>
@@ -500,11 +442,6 @@ export default function DragableCircles() {
           </span>
         </label>
       </FloatOptions>
-      {/* {selectedToZoom && (
-        <FloatWindow className="img-zoom-lens" id="result">
-          <div className="zoom-circle" />
-        </FloatWindow>
-      )} */}
     </Main>
   );
 }

@@ -218,3 +218,34 @@ export const FloatWindow = styled.div`
     display: none !important;
   }
 `;
+
+
+export const Circle = styled.div`
+  height: 25px;
+  width: 25px;
+  border: 1px solid ${props => props.color};
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  .cross-circle {
+    height: 1px;
+    width: 90%;
+    background: ${props => props.color};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    :before {
+      content: "";
+      position: absolute;
+      height: 90%;
+      width: 1px;
+      background: ${props => props.color};
+    }
+  }
+  .capture-data {
+    width: 1px;
+    height: 1px;
+  }
+`;
