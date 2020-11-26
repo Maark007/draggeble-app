@@ -197,7 +197,7 @@ export const Button = styled.button`
 
 export const Img = styled.img`
   height: 100vh;
-  width: 100%;
+  width: 50%;
   position: absolute;
   object-fit: contain;
 `;
