@@ -48,9 +48,7 @@ export default function DragableCircles() {
   const [nariz, setNariz] = useState(0);
 
   // Óculos
-  const thirdConnectionblackBall = useRef(null);
   const thirdConnectionPinkBall = useRef(null);
-  const [thirdConnectionMainBall, setThirdConnectionMainBall] = useState(coors);
   const [thirdConnectionthirdBall, setThirdConnectionthirdBall] = useState(
     coors
   );
@@ -76,13 +74,6 @@ export default function DragableCircles() {
     };
     loadData();
   }, [image, imageUrl]);
-
-  const ONE_HOUR_IN_MILISECONDS = 3600000;
-
-  setTimeout(() => {
-    const removePicture = localStorage.removeItem("my-image");
-    return removePicture;
-  }, ONE_HOUR_IN_MILISECONDS);
 
   useEffect(() => {
     if (image && imageUrl === undefined) {
@@ -138,7 +129,7 @@ export default function DragableCircles() {
 
   //// Óculos / Altura
   useEffect(() => {
-    const { x: mainX, y: mainY } = thirdConnectionMainBall;
+    const { x: mainX, y: mainY } = secondConnectionMainBall;
     const { x, y } = thirdConnectionthirdBall;
 
     const value = x - mainX + y - mainY;
@@ -147,9 +138,12 @@ export default function DragableCircles() {
     } else {
       setThirdConnectionDist(value);
     }
-  }, [thirdConnectionMainBall, thirdConnectionthirdBall]);
+  }, [secondConnectionMainBall, thirdConnectionthirdBall]);
 
-  useEffect(() => {
+
+  // secondConnectionMainBall  == bola esquerda
+
+   useEffect(() => {
     if (firstConnectionDist && thirdConnectionDist) {
       function round(value, step) {
         step || (step = 1.0);
@@ -213,9 +207,6 @@ export default function DragableCircles() {
     );
     setSecondConnectionMainBall(
       secondConnectionblackBall.current.getBoundingClientRect()
-    );
-    setThirdConnectionMainBall(
-      thirdConnectionblackBall.current.getBoundingClientRect()
     );
   }
 
@@ -377,22 +368,6 @@ export default function DragableCircles() {
               />
             </div>
             <div className="drag-container">
-              <Draggable onStart={updateMainBall} onDrag={updateMainBall}>
-                <div
-                  className={`black-circle ${
-                    showActualCircle.includes(3) && "show-circle"
-                  }`}
-                >
-                  <Circle color="#ff0fcf;">
-                    <div className="cross-circle">
-                      <div
-                        className="capture-data"
-                        ref={thirdConnectionblackBall}
-                      />
-                    </div>
-                  </Circle>
-                </div>
-              </Draggable>
               <Draggable onStart={updateSecondBall} onDrag={updateSecondBall}>
                 <div
                   className={`pink-circle ${
@@ -406,6 +381,7 @@ export default function DragableCircles() {
                         ref={thirdConnectionPinkBall}
                       />
                     </div>
+                    <span className="od">OE</span>
                   </Circle>
                 </div>
               </Draggable>

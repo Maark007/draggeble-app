@@ -223,15 +223,15 @@ export const FloatWindow = styled.div`
 export const Circle = styled.div`
   height: 25px;
   width: 25px;
+  border-radius: 500%;
   border: 1px solid ${props => props.color};
-  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   .cross-circle {
     height: 1px;
-    width: 90%;
+    width: 100%;
     background: ${props => props.color};
     display: flex;
     justify-content: center;
@@ -239,7 +239,7 @@ export const Circle = styled.div`
     :before {
       content: "";
       position: absolute;
-      height: 90%;
+      height: 100%;
       width: 1px;
       background: ${props => props.color};
     }
